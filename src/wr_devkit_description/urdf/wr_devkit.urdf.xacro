@@ -1,45 +1,24 @@
-<?xml version="1.0" ?>
-<robot name="wr_devkit" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+    name="mobile_claw">
 
-<xacro:include filename="$(find wr_devkit_description)/urdf/materials.xacro" />
-<xacro:include filename="$(find wr_devkit_description)/urdf/wr_devkit.trans" />
-<xacro:include filename="$(find wr_devkit_description)/urdf/wr_devkit.gazebo" />
-<link name="base_link">
-</link>
+    <!-- Arguments -->
+    <xacro:arg name="mid360_sensorkit" default="true" />
 
-<link name="devkit_frame_link">
-  <inertial>
-    <origin xyz="-0.002286220197256035 -0.0009315804339498247 0.0879648388296149" rpy="0 0 0"/>
-    <mass value="10.733504865991039"/>
-    <inertia ixx="0.167434" iyy="0.148852" izz="0.213349" ixy="0.000228" iyz="-0.000808" ixz="0.000348"/>
-  </inertial>
-  <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <mesh filename="package://wr_devkit_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <mesh filename="package://wr_devkit_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-  </collision>
-</link>
+    <!-- Include files -->
+    <xacro:include filename="$(find wr_devkit_description)/urdf/materials.xacro" />
+    <xacro:include
+        filename="$(find wr_devkit_description)/urdf/wr_devkit_base.urdf.xacro" />
 
-<link name="top_link_1">
-</link>
+    <!-- Sensor Kits -->
+    <xacro:if value="$(arg mid360_sensorkit)">
+        <xacro:include
+            filename="$(find wr_devkit_description)/urdf/mid360_sensorkit.urdf.xacro" />
 
-<joint name="top joint" type="fixed">
-  <origin xyz="0.0 0.0 0.193" rpy="0 0 0"/>
-  <parent link="devkit_frame_link"/>
-  <child link="top_link_1"/>
-</joint>
-
-<joint name="frame_joint" type="fixed">
-  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-  <parent link="base_link"/>
-  <child link="devkit_frame_link"/>
-</joint>
+        <joint name="top_sensorkit_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <parent link="top_sensorkit_link" />
+            <child link="mid360_sensorkit_base_link" />
+        </joint>
+    </xacro:if>
 </robot>

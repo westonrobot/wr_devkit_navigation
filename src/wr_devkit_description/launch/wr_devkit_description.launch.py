@@ -51,8 +51,6 @@ def generate_launch_description():
                         " ",
                         xacro_file,
                         " ",
-                        "gazebo:=ignition",
-                        " ",
                         "namespace:=",
                         namespace,
                     ]
