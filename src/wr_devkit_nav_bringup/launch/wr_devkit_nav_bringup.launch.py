@@ -20,7 +20,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration("use_sim_time")
     autostart = LaunchConfiguration("autostart")
     params_file = LaunchConfiguration("params_file")
-    map_yaml_file = LaunchConfiguration('map')
+    map_yaml_file = LaunchConfiguration("map")
     container_name = LaunchConfiguration("container_name")
     container_name_full = (namespace, "/", container_name)
     log_level = LaunchConfiguration("log_level")
@@ -37,6 +37,8 @@ def generate_launch_description():
     param_substitutions = {"use_sim_time": use_sim_time, "yaml_filename": map_yaml_file}
 
     lifecycle_nodes = [
+        "map_server",
+        "amcl",
         "controller_server",
         "smoother_server",
         "planner_server",
@@ -64,8 +66,9 @@ def generate_launch_description():
     # User defined config file should contain '<robot_namespace>' keyword for the replacements.
     params_file = ReplaceString(
         source_file=params_file,
-        replacements={'<robot_namespace>': ('/', namespace)},
-        condition=IfCondition(use_namespace))
+        replacements={"<robot_namespace>": ("/", namespace)},
+        condition=IfCondition(use_namespace),
+    )
 
     configured_params = ParameterFile(
         RewrittenYaml(
@@ -106,8 +109,8 @@ def generate_launch_description():
     )
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
-        'map',
-        description='Full path to map yaml file to load')
+        "map", description="Full path to map yaml file to load"
+    )
 
     declare_autostart_cmd = DeclareLaunchArgument(
         "autostart",
@@ -204,6 +207,23 @@ def generate_launch_description():
                         parameters=[
                             {"autostart": autostart, "node_names": lifecycle_nodes}
                         ],
+                    ),
+                    ComposableNode(
+                        package="nav2_map_server",
+                        plugin="nav2_map_server::MapServer",
+                        name="map_server",
+                        parameters=[
+                            configured_params,
+                            {"yaml_filename": map_yaml_file},
+                        ],
+                        remappings=remappings,
+                    ),
+                    ComposableNode(
+                        package='nav2_amcl',
+                        plugin='nav2_amcl::AmclNode',
+                        name='amcl',
+                        parameters=[configured_params],
+                        remappings=remappings,
                     ),
                 ],
             ),

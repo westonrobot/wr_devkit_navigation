@@ -78,19 +78,28 @@ def generate_launch_description():
                     ]
                 ),
                 launch_arguments={
-                    "publish_odom_tf": True,
+                    "publish_odom_tf": "true",
                 }.items(),
             ),
         ]
     )
 
-    static_tf = Node(
+    devkit_static_tf = Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='devkit_transform_publisher',
-            arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.25',
+            arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.465',
                        '--yaw', '0', '--pitch', '0', '--roll', '0',
                        '--frame-id', 'base_link', '--child-frame-id', 'wr_devkit_base_link']
+        )
+
+    base_footprint_static_tf = Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='base_footprint_publisher',
+            arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.0',
+                       '--yaw', '0', '--pitch', '0', '--roll', '0',
+                       '--frame-id', 'base_link', '--child-frame-id', 'base_footprint']
         )
 
     # Create the launch description and populate
@@ -105,6 +114,7 @@ def generate_launch_description():
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(robot_bringup)
-    ld.add_action(static_tf)
+    ld.add_action(devkit_static_tf)
+    ld.add_action(base_footprint_static_tf)
 
     return ld
