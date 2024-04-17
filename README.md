@@ -22,8 +22,6 @@ The onboard computer with the devkit should have been configured with the follow
 
 ## Installation
 
-Please refer to the [CI build script](.github/workflows/default.yml) for the most complete and up-to-date installation steps.
-
 * Install the Weston Robot Platform SDK (wrp-sdk)
 
     ```bash
@@ -37,9 +35,20 @@ Please refer to the [CI build script](.github/workflows/default.yml) for the mos
     $ sudo apt-get update
 
     $ sudo apt-get install wrp-sdk
+
+    # Install drivers for peripherals
+    $ sudo add-apt-repository ppa:lely/ppa
+    $ sudo apt-get update
+
+    $ sudo apt-get install liblely-coapp-dev liblely-co-tools python3-dcf-tools pkg-config
     ```
 
     Please refer to [this page](https://docs.westonrobot.net/software/installation_guide.html) for more details of the installation steps.
+
+* Install ugv_sdk dependencies
+    ```bash
+    sudo apt-get install build-essential git cmake libasio-dev
+    ```
 
 * Install Livox SDK2 (if you have the devkit variant with the Livox Mid-360 Lidar)
 
@@ -57,7 +66,7 @@ Please refer to the [CI build script](.github/workflows/default.yml) for the mos
 
     ```bash
     $ cd <your-workspace>/wr_devkit_navigation
-    # for Livox Mid-360 setup
+    # Clone dependencies
     $ vcs import --recursive src < ./navigation.repos
 
     $ source /opt/ros/humble/setup.bash
@@ -65,3 +74,34 @@ Please refer to the [CI build script](.github/workflows/default.yml) for the mos
     ```
 
     The build process should finish without any errors.
+
+## Running the packages
+Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID
+
+* Bringup Robot
+    ```bash
+    $ ros2 launch wr_devkit_robot_bringup wr_devkit_robot_bringup.launch.py
+    ```
+
+* 2D SLAM (Bringup robot first)
+    ```bash
+    $ ros2 launch wr_devkit_nav_bringup wr_devkit_cartographer.launch.py 
+
+    # Control via RC or teleop
+    $ ros2 run teleop_twist_keyboard teleop_twist_keyboard.py
+
+    # Save map
+    $ ros2 run nav2_map_server map_saver_cli -f <your_map_name>
+    ```
+
+* Sample Nav2 (Bringup robot first)
+    ```bash
+    $ ros2 launch wr_devkit_nav_bringup wr_devkit_nav_bringup.launch.py map:=<your_map_yaml>
+    ```
+
+    * You may want to hardcode the absolute path of the pgm file in the map yaml file
+    * Map to odom frame will not be published until you provide an initial pose estimate 
+    * You can run rviz2 on another pc via
+      ```bash
+      ros2 launch nav2_bringup rviz_launch.py
+      ```
