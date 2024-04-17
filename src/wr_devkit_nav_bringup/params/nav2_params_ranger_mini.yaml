@@ -113,14 +113,21 @@ controller_server:
   ros__parameters:
     controller_frequency: 30.0
     FollowPath:
-      plugin: "nav2_mppi_controller::MPPIController"
+      plugin: "nav2_rotation_shim_controller::RotationShimController"
+      angular_dist_threshold: 0.4
+      forward_sampling_distance: 0.5
+      rotate_to_heading_angular_vel: 0.8
+      max_angular_accel: 3.2
+      simulate_ahead_time: 1.0
+      
+      primary_controller: "nav2_mppi_controller::MPPIController"
       time_steps: 56
       model_dt: 0.05
       batch_size: 2000
       vx_std: 0.2
       vy_std: 0.2
       wz_std: 0.4
-      vx_max: 0.5
+      vx_max: 1.0
       vx_min: -0.35
       vy_max: 0.5
       wz_max: 1.9
@@ -137,7 +144,7 @@ controller_server:
         trajectory_step: 5
         time_step: 3
       AckermannConstraints:
-        min_turning_r: 0.4764
+        min_turning_r: 0.5
       critics: ["ConstraintCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic", "PathAngleCritic", "PreferForwardCritic"]
       ConstraintCritic:
         enabled: true
@@ -217,35 +224,42 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
-      robot_radius: 0.22
+      robot_radius: 0.3
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        inflation_radius: 0.3
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
-        publish_voxel_map: True
-        origin_z: 0.0
-        z_resolution: 0.05
+        publish_voxel_map: False
+        origin_z: 0.05
+        z_resolution: 0.08
         z_voxels: 16
-        max_obstacle_height: 2.0
+        max_obstacle_height: 1.8
         mark_threshold: 0
-        observation_sources: scan
-        scan:
-          topic: /scan
-          max_obstacle_height: 2.0
-          clearing: True
+        observation_sources: pointcloud_marking pointcloud_clearing
+        pointcloud_marking:
+          topic: /livox/lidar
+          max_obstacle_height: 1.8
+          clearing: False
           marking: True
-          data_type: "LaserScan"
+          data_type: "PointCloud2"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
           obstacle_min_range: 0.0
-      static_layer:
-        plugin: "nav2_costmap_2d::StaticLayer"
-        map_subscribe_transient_local: True
+        pointcloud_clearing:
+          topic: /livox/lidar
+          max_obstacle_height: 10.0
+          clearing: True
+          marking: False
+          data_type: "PointCloud2"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
       always_send_full_costmap: True
 
 global_costmap:
@@ -263,12 +277,22 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan
-        scan:
+        observation_sources: scan_marking scan_clearing
+        scan_marking:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: False
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+        scan_clearing:
           topic: /scan
           max_obstacle_height: 2.0
           clearing: True
-          marking: True
+          marking: False
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0

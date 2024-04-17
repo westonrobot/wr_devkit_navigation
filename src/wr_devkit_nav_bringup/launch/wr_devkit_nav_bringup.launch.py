@@ -33,9 +33,6 @@ def generate_launch_description():
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [("/tf", "tf"), ("/tf_static", "tf_static")]
 
-    # Create our own temporary YAML files that include substitutions
-    param_substitutions = {"use_sim_time": use_sim_time, "yaml_filename": map_yaml_file}
-
     lifecycle_nodes = [
         "map_server",
         "amcl",
@@ -58,7 +55,11 @@ def generate_launch_description():
     remappings = [("/tf", "tf"), ("/tf_static", "tf_static")]
 
     # Create our own temporary YAML files that include substitutions
-    param_substitutions = {"autostart": autostart}
+    param_substitutions = {
+        "autostart": autostart,
+        "use_sim_time": use_sim_time,
+        "yaml_filename": map_yaml_file,
+    }
 
     # Only it applys when `use_namespace` is True.
     # '<robot_namespace>' keyword shall be replaced by 'namespace' launch argument
@@ -136,7 +137,7 @@ def generate_launch_description():
                 name="nav2_container",
                 package="rclcpp_components",
                 executable="component_container_isolated",
-                parameters=[configured_params, {"autostart": autostart}],
+                parameters=[configured_params],
                 arguments=["--ros-args", "--log-level", log_level],
                 remappings=remappings,
                 output="screen",
@@ -219,9 +220,9 @@ def generate_launch_description():
                         remappings=remappings,
                     ),
                     ComposableNode(
-                        package='nav2_amcl',
-                        plugin='nav2_amcl::AmclNode',
-                        name='amcl',
+                        package="nav2_amcl",
+                        plugin="nav2_amcl::AmclNode",
+                        name="amcl",
                         parameters=[configured_params],
                         remappings=remappings,
                     ),
