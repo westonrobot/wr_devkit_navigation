@@ -11,6 +11,10 @@ The following hardware configurations are supported:
 * WR Devkit V1.0
   * With Livox Mid-360 Lidar
 
+* AgileX Base
+  * Ranger Mini 2.0
+  * More to come
+
 The onboard computer with the devkit should have been configured with the following software environment:
 
 * Ubuntu 22.04 
@@ -54,7 +58,7 @@ Please refer to the [CI build script](.github/workflows/default.yml) for the mos
     ```bash
     $ cd <your-workspace>/wr_devkit_navigation
     # for Livox Mid-360 setup
-    $ vcs import src < ./navigation.repos
+    $ vcs import --recursive src < ./navigation.repos
 
     $ source /opt/ros/humble/setup.bash
     $ colcon build --symlink-install

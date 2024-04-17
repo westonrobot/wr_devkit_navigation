@@ -10,10 +10,11 @@ repositories:
   drivers/ranger_ros2:
     type: git
     url: https://github.com/westonrobot/ranger_ros2.git
+    version: devel
   drivers/scout_ros2:
     type: git
     url: https://github.com/westonrobot/scout_ros2.git
-    version: main
+    version: humble
   drivers/wrp_ros2:
     type: git
     url: https://github.com/westonrobot/wrp_ros2.git
