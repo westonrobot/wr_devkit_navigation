@@ -93,7 +93,7 @@ def generate_launch_description():
                     "--y",
                     "-0.0",
                     "--z",
-                    "0.465",
+                    "0.335",
                     "--yaw",
                     "0",
                     "--pitch",
