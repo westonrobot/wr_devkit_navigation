@@ -30,7 +30,7 @@ This package is meant to be a starting point for users to build upon and customi
   | publish_period_sec | Publish period                | 1.0                      |
   | use_sim_time       | Whether to use sim time       | False                    |
 
-* [wr_devkit_nav2.launch.py](./launch/slam/wr_devkit_nav2.launch.py)
+* [wr_devkit_nav2.launch.py](./launch/nav2/wr_devkit_nav2.launch.py)
   * Sample launch file to perform 2D navigation using nav2
 
   | Argument       | Description                  | Default Value                                        |
