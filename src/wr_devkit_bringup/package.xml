@@ -19,6 +19,14 @@
   <exec_depend>w200d_sensor_kit_bringup</exec_depend>
   <exec_depend>mid360_sensor_kit_bringup</exec_depend>
 
+  <!-- Navigation -->
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>navigation2</exec_depend>
+  <exec_depend>nav2_common</exec_depend>
+
+  <!-- SLAM -->
+  <exec_depend>cartographer_ros</exec_depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

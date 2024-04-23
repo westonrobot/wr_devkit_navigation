@@ -18,6 +18,7 @@ This package is meant to be a starting point for users to build upon and customi
     | use_namespace | Whether to apply a namespace | False         |
     | namespace     | Top-level namespace          | ""            |
     | use_sim_time  | Whether to use sim time      | False         |
+
 * [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D SLAM using cartographer
 
@@ -28,3 +29,17 @@ This package is meant to be a starting point for users to build upon and customi
   | resolution         | Map resolution                | 0.05                     |
   | publish_period_sec | Publish period                | 1.0                      |
   | use_sim_time       | Whether to use sim time       | False                    |
+
+* [wr_devkit_nav2.launch.py](./launch/slam/wr_devkit_nav2.launch.py)
+  * Sample launch file to perform 2D navigation using nav2
+
+  | Argument       | Description                  | Default Value                                        |
+  | -------------- | ---------------------------- | ---------------------------------------------------- |
+  | use_namespace  | Whether to apply a namespace | False                                                |
+  | namespace      | Top-level namespace          | ""                                                   |
+  | params_file    | Nav2 param file              | wr_devkit_bringup/config/nav2_ranger_mini.param.yaml |
+  | map            | Map file                     | ""                                                   |
+  | autostart      | To autostart nodes           | True                                                 |
+  | container_name | Node container name          | "nav2_container"                                     |
+  | log_level      | LOG level                    | "info                                                |
+  | use_sim_time   | Map resolution               | 0.05                                                 |

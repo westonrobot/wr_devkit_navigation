@@ -1,19 +1,17 @@
-import os
-
-from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, GroupAction, SetEnvironmentVariable
+from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument, SetEnvironmentVariable
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
+from launch_ros.actions import Node, PushRosNamespace, SetParameter, LoadComposableNodes
+from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import LoadComposableNodes, SetParameter, Node, PushRosNamespace
-from launch_ros.descriptions import ComposableNode, ParameterFile
 from nav2_common.launch import RewrittenYaml, ReplaceString
-
+from launch_ros.descriptions import ComposableNode, ParameterFile
 
 def generate_launch_description():
     # Get the launch directory
-    bringup_dir = get_package_share_directory("wr_devkit_nav_bringup")
+    bringup_dir = FindPackageShare("wr_devkit_bringup")
 
     use_namespace = LaunchConfiguration("use_namespace")
     namespace = LaunchConfiguration("namespace")
@@ -103,9 +101,9 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
-        default_value=os.path.join(
-            bringup_dir, "params", "nav2_params_ranger_mini.yaml"
-        ),
+        default_value=PathJoinSubstitution([
+            bringup_dir, "config", "nav2_ranger_mini.param.yaml"
+        ]),
         description="Full path to the ROS2 parameters file to use for all launched nodes",
     )
 
@@ -132,7 +130,8 @@ def generate_launch_description():
     load_composable_nodes = GroupAction(
         actions=[
             SetParameter("use_sim_time", use_sim_time),
-            PushRosNamespace(condition=IfCondition(use_namespace), namespace=namespace),
+            PushRosNamespace(condition=IfCondition(
+                use_namespace), namespace=namespace),
             Node(
                 name="nav2_container",
                 package="rclcpp_components",
@@ -231,22 +230,15 @@ def generate_launch_description():
         ],
     )
 
-    # Create the launch description and populate
-    ld = LaunchDescription()
-
-    # Set environment variables
-    ld.add_action(stdout_linebuf_envvar)
-
-    # Declare the launch options
-    ld.add_action(declare_use_namespace_cmd)
-    ld.add_action(declare_namespace_cmd)
-    ld.add_action(declare_use_sim_time_cmd)
-    ld.add_action(declare_params_file_cmd)
-    ld.add_action(declare_map_yaml_cmd)
-    ld.add_action(declare_autostart_cmd)
-    ld.add_action(declare_container_name_cmd)
-    ld.add_action(declare_log_level_cmd)
-    # Add the actions to launch all of the navigation nodes
-    ld.add_action(load_composable_nodes)
-
-    return ld
+    return LaunchDescription([
+        stdout_linebuf_envvar,
+        declare_use_namespace_cmd,
+        declare_namespace_cmd,
+        declare_use_sim_time_cmd,
+        declare_params_file_cmd,
+        declare_map_yaml_cmd,
+        declare_autostart_cmd,
+        declare_container_name_cmd,
+        declare_log_level_cmd,
+        load_composable_nodes,
+    ])
