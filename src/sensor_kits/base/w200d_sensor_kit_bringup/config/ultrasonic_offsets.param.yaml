@@ -1,0 +1,19 @@
+# Xacro offsets
+# z_offset: Ground to Ultrasonic Z offset
+# front_rear_x_offset: Front/Rear-Facing X offsets
+# front_rear_y_offset: Front/Rear-Facing Y offsets
+# side_x_offset: Side-Facing X offsets
+# side_y_offset: Side-Facing Y offsets
+offsets:
+  ranger_mini:
+    z_offset: 0.33
+    front_rear_x_offset: 0.385
+    front_rear_y_offset: 0.165
+    side_x_offset: 0.2725
+    side_y_offset: 0.275 
+  scout_mini:
+    z_offset: 0.20
+    front_rear_x_offset: 0.3
+    front_rear_y_offset: 0.16
+    side_x_offset: 0.2
+    side_y_offset: 0.2 
