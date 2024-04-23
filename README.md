@@ -80,6 +80,8 @@ Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID
 
 * Bringup Robot
     ```bash
+    $ sudo ip link set can0 up type can bitrate 500000
+    $ sudo ip link set can0 txqueuelen 1000
     $ ros2 launch wr_devkit_robot_bringup wr_devkit_robot_bringup.launch.py
     ```
 
@@ -105,3 +107,13 @@ Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID
       ```bash
       ros2 launch nav2_bringup rviz_launch.py
       ```
+
+## Additional Notes
+
+* Sample launch files for ultrasonic sensors (not integrated with Nav2)
+  
+    * Ranger Mini 2.0
+
+    ```bash
+    $ ros2 launch wr_devkit_robot_bringup wr_devkit_ultrasonic_bringup.launch.py
+    ```
