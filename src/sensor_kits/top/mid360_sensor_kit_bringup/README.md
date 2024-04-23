@@ -1,0 +1,46 @@
+# Livox Mid360 Sensor Kit Bringup
+
+![Mid360 Sensor Kit](docs/mid360_sensor_kit.jpg)
+
+## Overview
+This package contains launch and config files to launch Weston Robot's Mid360 Sensor Kit (top).
+
+## Usage
+To launch the Mid360 Sensor Kit, use the provided launch file:
+```bash
+ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
+```
+
+## Launch Files
+* [sensor_kit.launch.py](./launch/sensor_kit.launch.py)
+  | Argument      | Description                  | Default Value |
+  | ------------- | ---------------------------- | ------------- |
+  | use_namespace | Whether to apply a namespace | False         |
+  | namespace     | Top-level namespace          | ""            |
+
+## Nodes
+The package will launch the various sensors and their associated driver nodes/supporting nodes
+
+* Description
+  * Package: robot_state_publisher
+  * Executable/Plugin: robot_state_publisher
+  * Name: mid360_sensor_kit_state_publisher
+* IMU
+  * Driver
+    * Package: wrp_ros2
+    * Executable/Plugin: imu_sensor_node
+    * Name: ch104m_imu_sensor_node
+* Lidar
+  * Driver
+    * Package: livox_ros_driver2
+    * Executable/Plugin: livox_ros_driver2_node
+    * Name: livox_lidar_publisher
+  * Pointcloud -> LaserScan
+    * Package: pointcloud_to_laserscan
+    * Executable/Plugin: pointcloud_to_laserscan_node
+    * Name: pointcloud_to_laserscan_node
+
+## Configuration
+To better suit your needs/setup, you may need to adjust these accordingly
+* [Configuration files](./config/)
+* [Launch files](./launch/)
