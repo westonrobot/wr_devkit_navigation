@@ -42,7 +42,7 @@ def generate_launch_description():
     load_description = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        name="mid360_sensor_kit_state_publisher",
+        name="ugv_devkit_v1_sensor_kit_state_publisher",
         output="screen",
         parameters=[{"robot_description": robot_desc}],
     )
