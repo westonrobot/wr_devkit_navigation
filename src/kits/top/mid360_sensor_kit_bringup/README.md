@@ -1,6 +1,6 @@
 # Livox Mid360 Sensor Kit Bringup
 
-![Mid360 Sensor Kit](docs/mid360_sensor_kit.jpg)
+![Mid360 Sensor Kit](docs/mid360_sensor_kit.png)
 
 ## Overview
 This package contains launch and config files to launch Weston Robot's Mid360 Sensor Kit (top).
