@@ -18,3 +18,13 @@ This package is meant to be a starting point for users to build upon and customi
     | use_namespace | Whether to apply a namespace | False         |
     | namespace     | Top-level namespace          | ""            |
     | use_sim_time  | Whether to use sim time      | False         |
+* [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
+  * Sample launch file to perform 2D SLAM using cartographer
+
+  | Argument           | Description                   | Default Value            |
+  | ------------------ | ----------------------------- | ------------------------ |
+  | config_path        | Path to config file directory | wr_devkit_bringup/config |
+  | config             | Config file name              | cartographer.lua         |
+  | resolution         | Map resolution                | 0.05                     |
+  | publish_period_sec | Publish period                | 1.0                      |
+  | use_sim_time       | Whether to use sim time       | False                    |
