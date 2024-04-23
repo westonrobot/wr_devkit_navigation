@@ -113,4 +113,5 @@ def generate_launch_description():
         declare_namespace_arg,
         load_description,
         imu_bringup,
+        lidar_bringup
     ])
