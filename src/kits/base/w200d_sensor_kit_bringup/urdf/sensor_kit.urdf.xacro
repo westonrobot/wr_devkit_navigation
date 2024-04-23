@@ -13,6 +13,13 @@
   <xacro:property name="x2_offset" value="${sensor_kit_info['side_x_offset']}" />
   <xacro:property name="y2_offset" value="${sensor_kit_info['side_y_offset']}" />
 
+  <link name="base_link"/>
+
+  <joint name="w200d_sensor_kit_base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="w200d_sensor_kit_base_link" />
+  </joint>
 
   <link name="w200d_sensor_kit_base_link"> <!-- Conceptually same position as base link-->
   </link>

@@ -36,6 +36,9 @@ def launch_setup(context, *args, **kwargs):
         name="w200d_sensor_kit_state_publisher",
         output="screen",
         parameters=[{"robot_description": robot_desc}],
+        remappings=[
+            ("robot_description", "w200d_sensor_kit_description"),
+        ]
     )
 
     # --------- Drivers ---------

@@ -45,6 +45,9 @@ def generate_launch_description():
         name="ugv_devkit_v1_sensor_kit_state_publisher",
         output="screen",
         parameters=[{"robot_description": robot_desc}],
+        remappings=[
+            ("robot_description", "ugv_devkit_v1_chassis_description"),
+        ]
     )
 
     return LaunchDescription([

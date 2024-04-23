@@ -37,12 +37,41 @@
     <child link="ugv_devkit_v1_chassis_link" />
   </joint>
 
-  <link name="top_sensor_kit_link">
-  </link>
+  <!-- The links and joints below are used by the sensor kits and are recommended not to be renamed/removed-->
+  <link name="top_sensor_kit_link"/>
+  <link name="front_sensor_kit_link"/>
+  <link name="rear_sensor_kit_link"/>
+  <link name="left_sensor_kit_link"/>
+  <link name="right_sensor_kit_link"/>
 
   <joint name="top_joint" type="fixed">
     <origin xyz="0.0 0.0 0.193" rpy="0 0 0" />
     <parent link="ugv_devkit_v1_base_link" />
     <child link="top_sensor_kit_link" />
   </joint>
+
+  <joint name="front_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="front_sensor_kit_link" />
+  </joint>
+
+  <joint name="rear_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="rear_sensor_kit_link" />
+  </joint>
+
+  <joint name="left_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="left_sensor_kit_link" />
+  </joint>
+
+  <joint name="right_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="right_sensor_kit_link" />
+  </joint>
+
 </robot>
