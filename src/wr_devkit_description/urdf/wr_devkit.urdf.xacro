@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro"
-    name="mobile_claw">
+<robot name="wr_devkit" xmlns:xacro="http://ros.org/wiki/xacro" >
 
+    <xacro:include filename="$(find wr_devkit_description)/urdf/include/materials.xacro" />
     <!-- Arguments -->
-    <xacro:arg name="mid360_sensorkit" default="true" />
+    <xacro:arg name="mid360_sensor_kit" default="false" />
+    <xacro:arg name="w200d_sensor_kit" default="false" />
 
     <!-- Include files -->
-    <xacro:include filename="$(find wr_devkit_description)/urdf/materials.xacro" />
     <xacro:include
         filename="$(find wr_devkit_description)/urdf/wr_devkit_base.urdf.xacro" />
 
     <!-- Sensor Kits -->
-    <xacro:if value="$(arg mid360_sensorkit)">
+    <xacro:if value="$(arg mid360_sensor_kit)">
         <xacro:include
-            filename="$(find wr_devkit_description)/urdf/mid360_sensorkit.urdf.xacro" />
+            filename="$(find wr_devkit_description)/urdf/mid360_sensor_kit.urdf.xacro" />
 
         <joint name="top_sensorkit_joint" type="fixed">
             <origin xyz="0 0 0" rpy="0 0 0" />

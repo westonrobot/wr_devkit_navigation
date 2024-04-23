@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot name="ugv_devkit_v1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="silver">
+    <color rgba="0.700 0.700 0.700 1.000"/>
+  </material>
+
+  <link name="ugv_devkit_v1_base_link"></link>
+
+  <link name="ugv_devkit_v1_chassis_link">
+    <inertial>
+      <origin xyz="-0.002286220197256035 -0.0009315804339498247 0.0879648388296149" rpy="0 0 0" />
+      <mass value="10.733504865991039" />
+      <inertia ixx="0.167434" iyy="0.148852" izz="0.213349" ixy="0.000228" iyz="-0.000808"
+        ixz="0.000348" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ugv_devkit_v1_bringup/meshes/ugv_devkit_v1_chassis_link.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ugv_devkit_v1_bringup/meshes/ugv_devkit_v1_chassis_link.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="chassis_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="ugv_devkit_v1_chassis_link" />
+  </joint>
+
+  <link name="top_sensor_kit_link">
+  </link>
+
+  <joint name="top_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.193" rpy="0 0 0" />
+    <parent link="ugv_devkit_v1_base_link" />
+    <child link="top_sensor_kit_link" />
+  </joint>
+</robot>
