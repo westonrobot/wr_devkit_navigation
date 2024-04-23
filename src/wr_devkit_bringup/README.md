@@ -42,4 +42,4 @@ This package is meant to be a starting point for users to build upon and customi
   | autostart      | To autostart nodes           | True                                                 |
   | container_name | Node container name          | "nav2_container"                                     |
   | log_level      | LOG level                    | "info                                                |
-  | use_sim_time   | Map resolution               | 0.05                                                 |
+  | use_sim_time   | Whether to use sim time      | False                                                |

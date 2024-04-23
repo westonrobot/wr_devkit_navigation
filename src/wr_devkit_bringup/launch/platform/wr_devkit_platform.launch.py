@@ -55,7 +55,7 @@ def generate_launch_description():
                 "base_frame": "base_link",
                 "update_rate": "50",
                 "odom_topic_name": "odom",
-                "publish_odom_tf": "false",
+                "publish_odom_tf": "true",
             }.items(),
         ),
         Node(
@@ -118,6 +118,7 @@ def generate_launch_description():
         declare_use_namespace_cmd,
         declare_namespace_cmd,
         declare_use_sim_time_cmd,
+        robot_base_bringup,
         chassis_bringup,
         sensor_kit_bringup
     ])

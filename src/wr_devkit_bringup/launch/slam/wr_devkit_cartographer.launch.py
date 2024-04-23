@@ -54,7 +54,7 @@ def generate_launch_description():
         parameters=[{"use_sim_time": use_sim_time}],
         arguments=[
             "-configuration_directory",
-            config_path,
+            LaunchConfiguration("config_path"),
             "-configuration_basename",
             config,
         ],
