@@ -22,7 +22,7 @@ jobs:
       - name: Install wrp-sdk
         run: |
           sudo install -m 0755 -d /etc/apt/keyrings
-          curl -fsSL http://deb.westonrobot.net/signing.key | sudo gpg --dearmor -o /etc/apt/keyrings/weston-robot.gpg
+          curl -fsSL http://deb.westonrobot.net/signing.key | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/weston-robot.gpg
           sudo chmod a+r /etc/apt/keyrings/weston-robot.gpg
           echo \
             "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/weston-robot.gpg] http://deb.westonrobot.net/$(lsb_release -cs) $(lsb_release -cs) main" | \
