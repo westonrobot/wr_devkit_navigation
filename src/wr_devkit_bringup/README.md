@@ -6,7 +6,7 @@ This package contains sample launch and config files to launch Weston Robot's De
 This package is meant to be a starting point for users to build upon and customize to their needs, and shows how to compose the various kits of the Devkit platform.
 
 ## Launch files
-* [wr_devkit_platform.launch.py](./launch/wr_devkit_platform.launch.py)
+* [wr_devkit_platform.launch.py](./launch/platform/wr_devkit_platform.launch.py)
   * Sample launch file to launch the Weston Robot Devkit platform with the following configuration
     * Robot base: Ranger mini v2
     * Chassis: ugv_devkit_v1

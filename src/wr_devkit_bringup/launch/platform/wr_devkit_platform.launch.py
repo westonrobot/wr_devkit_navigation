@@ -107,7 +107,10 @@ def generate_launch_description():
                     "launch",
                     "sensor_kit.launch.py",
                 ])
-            ])
+            ]),
+            launch_arguments={
+                "robot_base": "ranger_mini",
+            }.items(),
         ),
     ])
 
