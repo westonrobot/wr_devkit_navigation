@@ -21,6 +21,8 @@ This package is meant to be a starting point for users to build upon and customi
 
 * [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D SLAM using cartographer
+  * Assumes the following configuration by default
+    * Top sensor kit: mid360_sensor_kit
 
   | Argument           | Description                   | Default Value            |
   | ------------------ | ----------------------------- | ------------------------ |
@@ -32,6 +34,9 @@ This package is meant to be a starting point for users to build upon and customi
 
 * [wr_devkit_nav2.launch.py](./launch/nav2/wr_devkit_nav2.launch.py)
   * Sample launch file to perform 2D navigation using nav2
+    * Robot base: Ranger mini v2
+    * Chassis: ugv_devkit_v1
+    * Top sensor kit: mid360_sensor_kit
 
   | Argument       | Description                  | Default Value                                        |
   | -------------- | ---------------------------- | ---------------------------------------------------- |
