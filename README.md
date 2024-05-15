@@ -37,6 +37,7 @@ The onboard computer with the devkit should have been configured with the follow
     $ sudo apt-get install wrp-sdk
 
     # Install drivers for peripherals
+    $ sudo apt-get install -y software-properties-common 
     $ sudo add-apt-repository ppa:lely/ppa
     $ sudo apt-get update
 
@@ -44,6 +45,11 @@ The onboard computer with the devkit should have been configured with the follow
     ```
 
     Please refer to [this page](https://docs.westonrobot.net/software/installation_guide.html) for more details of the installation steps.
+
+* Install ros-dev-tools **(Make sure you have ros2 installed first)**
+    ```bash
+    $ sudo apt install ros-dev-tools
+    ```
 
 * Install ugv_sdk dependencies
     ```bash
@@ -117,3 +123,8 @@ Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID
     ```bash
     $ ros2 launch wr_devkit_robot_bringup wr_devkit_ultrasonic_bringup.launch.py
     ```
+
+* Depending on the specific hardware configurations, you may need to modify the sample launch files and configuration files to adapt to your setup.  
+   Take note of the below in particluar:
+   1. IP addresses of the lidar and the data ports it uses. ([config file](./src/wr_devkit_robot_bringup/config/MID360_config.json))
+   2. Device path of the IMU in the [launch file](./src/wr_devkit_robot_bringup/launch/wr_devkit_sensor_bringup.launch.py).
