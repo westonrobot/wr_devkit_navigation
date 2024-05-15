@@ -2,20 +2,20 @@ repositories:
   drivers/livox_ros_driver2:
     type: git
     url: https://github.com/westonrobot/livox_ros_driver2
-    version: devel
-  drivers/ugv_sdk:
-    type: git
-    url: https://github.com/westonrobot/ugv_sdk.git
-    version: main
+    version: 16a3738ad477a1eb1766c55f09d7415c8236516f
   drivers/ranger_ros2:
     type: git
     url: https://github.com/westonrobot/ranger_ros2.git
-    version: devel
+    version: 12e4c9f79d555ed2241f7c355a758a779393651a
   drivers/scout_ros2:
     type: git
     url: https://github.com/westonrobot/scout_ros2.git
-    version: humble
+    version: 34bf5dfaf8b1c8f2dd08d19790d0eead16bfb791
+  drivers/ugv_sdk:
+    type: git
+    url: https://github.com/westonrobot/ugv_sdk.git
+    version: 012a9aa02436ffe2ef66f211dd193be7b69902ba
   drivers/wrp_ros2:
     type: git
     url: https://github.com/westonrobot/wrp_ros2.git
-    version: main
+    version: 30431fd002b7e0a67c295bbf87ab1dc9d5cbb7ee
