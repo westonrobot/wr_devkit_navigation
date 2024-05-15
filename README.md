@@ -45,6 +45,11 @@ The onboard computer with the devkit should have been configured with the follow
 
     Please refer to [this page](https://docs.westonrobot.net/software/installation_guide.html) for more details of the installation steps.
 
+* Install ros-dev-tools **(Make sure you have ros2 installed first)**
+    ```bash
+    $ sudo apt install ros-dev-tools
+    ```
+
 * Install ugv_sdk dependencies
     ```bash
     sudo apt-get install build-essential git cmake libasio-dev
