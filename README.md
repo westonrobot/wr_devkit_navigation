@@ -37,6 +37,7 @@ The onboard computer with the devkit should have been configured with the follow
     $ sudo apt-get install wrp-sdk
 
     # Install drivers for peripherals
+    $ sudo apt-get install -y software-properties-common 
     $ sudo add-apt-repository ppa:lely/ppa
     $ sudo apt-get update
 
