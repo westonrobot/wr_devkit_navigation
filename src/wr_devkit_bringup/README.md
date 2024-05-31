@@ -13,11 +13,12 @@ This package is meant to be a starting point for users to build upon and customi
     * Base sensor kit: w200d_sensor_kit
     * Top sensor kit: mid360_sensor_kit
   
-    | Argument      | Description                  | Default Value |
-    | ------------- | ---------------------------- | ------------- |
-    | use_namespace | Whether to apply a namespace | False         |
-    | namespace     | Top-level namespace          | ""            |
-    | use_sim_time  | Whether to use sim time      | False         |
+    | Argument      | Description                  | Default Value    |
+    | ------------- | ---------------------------- | ---------------- |
+    | use_namespace | Whether to apply a namespace | False            |
+    | namespace     | Top-level namespace          | ""               |
+    | use_sim_time  | Whether to use sim time      | False            |
+    | robot_model   | Whether to use sim time      | ranger_mini_v2   |
 
 * [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D SLAM using cartographer
@@ -42,8 +43,9 @@ This package is meant to be a starting point for users to build upon and customi
   | -------------- | ---------------------------- | ---------------------------------------------------- |
   | use_namespace  | Whether to apply a namespace | False                                                |
   | namespace      | Top-level namespace          | ""                                                   |
-  | params_file    | Nav2 param file              | wr_devkit_bringup/config/nav2_ranger_mini.param.yaml |
-  | map            | Map file                     | ""                                                   |
+  | robot_param    | Robot Nav2 param file        | nav2_ranger_mini.param.yaml                          |
+  | params_file    | Nav2 param file              | wr_devkit_bringup/config/robot_param                 |
+  | map            | Map file                     | map.yaml                                             |
   | autostart      | To autostart nodes           | True                                                 |
   | container_name | Node container name          | "nav2_container"                                     |
   | log_level      | LOG level                    | "info                                                |

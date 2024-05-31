@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument, SetEnvironmentVariable
+from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument, SetEnvironmentVariable, OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 from launch_ros.actions import Node, PushRosNamespace, SetParameter, LoadComposableNodes
@@ -17,6 +17,7 @@ def generate_launch_description():
     namespace = LaunchConfiguration("namespace")
     use_sim_time = LaunchConfiguration("use_sim_time")
     autostart = LaunchConfiguration("autostart")
+    robot_param = LaunchConfiguration("robot_param")
     params_file = LaunchConfiguration("params_file")
     map_yaml_file = LaunchConfiguration("map")
     container_name = LaunchConfiguration("container_name")
@@ -99,16 +100,26 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if true",
     )
 
+    declare_robot_param_cmd = DeclareLaunchArgument(
+        "robot_param",
+        default_value="nav2_ranger_mini.param.yaml",
+        description="nav2_ranger_mini.param.yaml, nav2_scout_mini.param.yaml",
+    )
+
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
         default_value=PathJoinSubstitution([
-            bringup_dir, "config", "nav2_ranger_mini.param.yaml"
+            bringup_dir, "config", robot_param,
         ]),
         description="Full path to the ROS2 parameters file to use for all launched nodes",
     )
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
-        "map", description="Full path to map yaml file to load"
+        "map", 
+        default_value=PathJoinSubstitution([
+            bringup_dir, "maps", "map.yaml",
+        ]),
+        description="Full path to map yaml file to load"
     )
 
     declare_autostart_cmd = DeclareLaunchArgument(
@@ -235,6 +246,7 @@ def generate_launch_description():
         declare_use_namespace_cmd,
         declare_namespace_cmd,
         declare_use_sim_time_cmd,
+        declare_robot_param_cmd,
         declare_params_file_cmd,
         declare_map_yaml_cmd,
         declare_autostart_cmd,

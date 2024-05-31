@@ -83,7 +83,7 @@ def generate_launch_description():
                 PathJoinSubstitution([
                     FindPackageShare('mid360_sensor_kit_bringup'),
                     'config',
-                    'hipnuc.param.yaml']),
+                    'mid360.param.yaml']),
                 {"user_config_path": user_config_path},
             ]
         ),
