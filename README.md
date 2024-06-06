@@ -146,16 +146,14 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 
 * Launch Nav2
     ```bash
-    $ ros2 launch wr_devkit_bringup wr_devkit_nav2.launch.py robot_param:=nav2_ranger_mini.param.yaml
+    $ ros2 launch wr_devkit_bringup wr_devkit_nav2.launch.py robot_param:=nav2_ranger_mini.param.yaml map:=<your_map_yaml>
     ```
-
+    * You may want to hardcode the absolute path of the pgm file in the map yaml file
     * Map to odom frame will not be published until you provide an initial pose estimate 
     * You can run rviz2 on another pc via
       ```bash
       $ ros2 launch nav2_bringup rviz_launch.py
       ```
-    * If you need to change the map, open the `wr_devkit_nav2.launch.py` file to replace the parameter `map` with the name of the map you want to use. The file is located at `~/Workspace/wr_devkit_navigation/src/wr_devkit_bringup/launch/nav2/`
-      <img src="./image/map_yaml.png" />
 
 
 ## Notes
