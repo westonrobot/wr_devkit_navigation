@@ -2,23 +2,36 @@
 
 ![default workflow](https://github.com/westonrobot/wr_devkit_navigation/actions/workflows/default.yml/badge.svg?branch=main)
 
-This repository provides a reference setup for using Nav2 stack to do 2D navigation with the mobile robot development kit from Weston Robot.
+This repository provides a reference setup when using the mobile robot development kit from Weston Robot.
 
 ## Requirements
 
-The following hardware configurations are supported: 
+The following hardware configurations are supported:
 
-* WR Devkit V1.0
-  * With Livox Mid-360 Lidar
+### Chassis
+| Name                     | Documentation                                                       | Source Code                                                        |
+| ------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| UGV Development Kit V1.0 | [wiki](https://docs.westonrobot.net/wr_dev_kit/ugv_dev_kit_v1.html) | [ugv_devkit_v1_bringup](./src/kits/chassis/ugv_devkit_v1_bringup/) |
 
-* AgileX Base
-  * Ranger Mini 2.0
-  * More to come
+### Sensor Kits
+| Sensor kit               | Mount Location | Documentation | Source Code                                                            |
+| ------------------------ | -------------- | ------------- | ---------------------------------------------------------------------- |
+| Livox Mid360 Lidar + IMU | Top            | TBD           | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
+| W200D Ultrasonic Sensors | Base           | TBD           | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)  |
 
-The onboard computer with the devkit should have been configured with the following software environment:
+### Robot Bases
+| Base            | Documentation                                                                      |
+| --------------- | ---------------------------------------------------------------------------------- |
+| Ranger Mini 2.0 | [wiki](https://docs.westonrobot.com/robot_user_guide/agilex/ranger_mini_v2.0.html) |
+| Scout Mini      | [wiki](https://docs.westonrobot.com/robot_user_guide/agilex/scout_mini.html) |
 
-* Ubuntu 22.04 
-* ROS Humble
+**Note**: Robot bases are used for testing and development purposed only. Other robot bases should also be compatible with the provided chassis and sensor kits.
+
+### Onboard Computer
+| Operating System | Framework                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| Ubuntu 22.04     | [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) |
+
 
 ## Installation
 
@@ -32,8 +45,8 @@ The onboard computer with the devkit should have been configured with the follow
     $ echo \
         "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/weston-robot.gpg] http://deb.westonrobot.net/$(lsb_release -cs) $(lsb_release -cs) main" | \
         sudo tee /etc/apt/sources.list.d/weston-robot.list > /dev/null
-    $ sudo apt-get update
 
+    $ sudo apt-get update
     $ sudo apt-get install wrp-sdk
 
     # Install drivers for peripherals
@@ -44,19 +57,15 @@ The onboard computer with the devkit should have been configured with the follow
     $ sudo apt-get install liblely-coapp-dev liblely-co-tools python3-dcf-tools pkg-config
     ```
 
-    Please refer to [this page](https://docs.westonrobot.net/software/installation_guide.html) for more details of the installation steps.
+    Please refer to [this page](https://docs.westonrobot.com/software/installation_guide.html) for more details of the installation steps.
 
-* Install ros-dev-tools **(Make sure you have ros2 installed first)**
-    ```bash
-    $ sudo apt install ros-dev-tools
-    ```
 
 * Install ugv_sdk dependencies
     ```bash
     sudo apt-get install build-essential git cmake libasio-dev
     ```
 
-* Install Livox SDK2 (if you have the devkit variant with the Livox Mid-360 Lidar)
+* Install Livox SDK2 (if you have the Livox Mid360 Lidar + IMU sensor kit)
 
     ```bash
     $ cd ~
@@ -66,12 +75,13 @@ The onboard computer with the devkit should have been configured with the follow
     $ sudo make install
     ```
 
-    Note: you can build and install the Livox-SDK2 at your preferred places other than "~/Livox-SDK2". And you can optionally remove the "Livox-SDK2" folder after installation.
+    > **Note:** You can build and install the Livox-SDK2 at your preferred places other than "~/Livox-SDK2". And you can optionally remove the "Livox-SDK2" folder after installation.
 
-* Import the ROS packages into the workspace and build
+* Import the ROS driver packages into the workspace and build
 
     ```bash
     $ cd <your-workspace>/wr_devkit_navigation
+
     # Clone dependencies
     $ vcs import --recursive src < ./navigation.repos
 
@@ -81,50 +91,70 @@ The onboard computer with the devkit should have been configured with the follow
 
     The build process should finish without any errors.
 
-## Running the packages
-Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID
+* Install ROS packages **(Make sure you have ros2 installed first)**
+    ```bash
+    $ chmod +x ros2_packages.sh
+    $ ./ros2_packages.sh
+    ```
 
-* Bringup Robot
+## Running the packages
+Sample launch files can be found in the [wr_devkit_bringup](./src/wr_devkit_bringup/) package. They are meant to be used as a starting point for your own development and can be customized to your needs.
+
+Below is the typical workflow to bring up the robot and run some sample applications.  
+**Remember to source the ROS Workspace first and optionally set ROS_DOMAIN_ID**
+
+* Bringup CAN Bus
     ```bash
     $ sudo ip link set can0 up type can bitrate 500000
     $ sudo ip link set can0 txqueuelen 1000
-    $ ros2 launch wr_devkit_robot_bringup wr_devkit_robot_bringup.launch.py
     ```
 
-* 2D SLAM (Bringup robot first)
+| Base                       | robot_model            |robot_param                         |
+| -------------------------- | ---------------------- |----------------------------------- |
+| Ranger Mini 2.0 (default)  | ranger_mini_v2         |nav2_ranger_mini.param.yaml         |
+| Scout Mini                 | scout_mini             |nav2_scout_mini.param.yaml          |
+> **Note:** Ensure the `robot_model` and `robot_param` arguments in the command line match your specific robot configuration. Adjust the launch file as necessary to align with your hardware and software setup
+
+### Sample 2D SLAM ([Cartographer Mapping](https://google-cartographer-ros.readthedocs.io/en/latest/index.html))
+
+* Bringup Robot
     ```bash
-    $ ros2 launch wr_devkit_nav_bringup wr_devkit_cartographer.launch.py 
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=ranger_mini_v2
+    ```
+
+* SLAM
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_cartographer.launch.py
 
     # Control via RC or teleop
     $ ros2 run teleop_twist_keyboard teleop_twist_keyboard.py
+    ```
+    > **Note:** The speed should be slow during the mapping process. If the speed is too fast, the map quality will be affected
 
-    # Save map
+* Map Saving
+    ```bash
+    $ cd Workspace/wr_devkit_navigation/src/wr_devkit_bringup/maps
     $ ros2 run nav2_map_server map_saver_cli -f <your_map_name>
     ```
 
-* Sample Nav2 (Bringup robot first)
+### Sample Navigation ([Nav2](https://docs.nav2.org/index.html))
+
+* Bringup Robot
     ```bash
-    $ ros2 launch wr_devkit_nav_bringup wr_devkit_nav_bringup.launch.py map:=<your_map_yaml>
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=ranger_mini_v2
     ```
 
+* Launch Nav2
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_nav2.launch.py robot_param:=nav2_ranger_mini.param.yaml map:=<your_map_yaml>
+    ```
     * You may want to hardcode the absolute path of the pgm file in the map yaml file
     * Map to odom frame will not be published until you provide an initial pose estimate 
     * You can run rviz2 on another pc via
       ```bash
-      ros2 launch nav2_bringup rviz_launch.py
+      $ ros2 launch nav2_bringup rviz_launch.py
       ```
 
-## Additional Notes
 
-* Sample launch files for ultrasonic sensors (not integrated with Nav2)
-  
-    * Ranger Mini 2.0
-
-    ```bash
-    $ ros2 launch wr_devkit_robot_bringup wr_devkit_ultrasonic_bringup.launch.py
-    ```
-
-* Depending on the specific hardware configurations, you may need to modify the sample launch files and configuration files to adapt to your setup.  
-   Take note of the below in particluar:
-   1. IP addresses of the lidar and the data ports it uses. ([config file](./src/wr_devkit_robot_bringup/config/MID360_config.json))
-   2. Device path of the IMU in the [launch file](./src/wr_devkit_robot_bringup/launch/wr_devkit_sensor_bringup.launch.py).
+## Notes
+* The sample applications (Nav2/SLAM) are designed to be ran separately and should not be ran at the same time.

@@ -1,0 +1,9 @@
+/**:
+  ros__parameters:
+    sensor_model: w200d
+    device_path: /dev/ttyS0
+    baud_rate: 115200
+    frame_id: ultrasonic_link
+    topic_name: ultrasonic
+
+
