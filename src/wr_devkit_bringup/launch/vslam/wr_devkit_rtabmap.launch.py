@@ -24,7 +24,8 @@ def generate_launch_description():
         'qos_camera_info':qos,
         'approx_sync':True,
         'Reg/Force3DoF':'true',
-        'Optimizer/GravitySigma':'0'
+        'Optimizer/GravitySigma':'0',
+        'Grid/Sensor':'2'
     }
 
     remappings=[
@@ -34,15 +35,6 @@ def generate_launch_description():
         ('rgb/camera_info', '/camera/camera/color/camera_info'),
         ('depth/image', '/camera/camera/aligned_depth_to_color/image_raw')
     ]
-
-    base_link_to_camera_node = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        name='base_link_to_base_camera',
-        arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
-                   '--yaw', '0', '--pitch', '0', '--roll', '0',
-                   '--frame-id', 'base_link', '--child-frame-id', 'camera_link']
-    )
 
     return LaunchDescription([
 
@@ -84,5 +76,12 @@ def generate_launch_description():
             remappings=remappings
         ),
 
-        base_link_to_camera_node
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='base_link_to_base_camera',
+            arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
+                    '--yaw', '0', '--pitch', '0', '--roll', '0',
+                    '--frame-id', 'base_link', '--child-frame-id', 'camera_link']
+        )
     ])
