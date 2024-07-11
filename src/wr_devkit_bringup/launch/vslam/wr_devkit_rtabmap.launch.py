@@ -108,7 +108,7 @@ def generate_launch_description():
             package='rviz2', 
             executable='rviz2', 
             output='screen',
-            arguments=['-d', PathJoinSubstitution([FindPackageShare('wr_devkit_bringup'), 'rtabmap.rviz'])]
+            arguments=[PathJoinSubstitution([FindPackageShare('wr_devkit_bringup'), 'rtabmap.rviz'])]
         ),
 
         # Node(
