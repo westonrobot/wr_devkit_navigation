@@ -10,6 +10,7 @@ from launch.conditions import IfCondition
 
 def generate_launch_description():
     robot_model = LaunchConfiguration("robot_model")
+    camera = LaunchConfiguration("camera")
 
     declare_use_namespace_cmd = DeclareLaunchArgument(
         "use_namespace",
@@ -31,6 +32,12 @@ def generate_launch_description():
         "robot_model",
         default_value="ranger_mini_v2",
         description="ranger_mini_v2, scout_mini",
+    )
+
+    declare_camera_cmd = DeclareLaunchArgument(
+        "camera",
+        default_value="false",
+        description="Launch realsense d435 camera",
     )
 
     SetParameter(
@@ -157,8 +164,17 @@ def generate_launch_description():
                     "align_depth",
                     "rs_align_depth_launch.py",
                 ])
-            ])
+            ]),
+            condition=IfCondition(camera)
         ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='base_link_to_base_camera',
+            arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
+                    '--yaw', '0', '--pitch', '0', '--roll', '0',
+                    '--frame-id', 'base_link', '--child-frame-id', 'camera_link']
+        )
     ])
 
     return LaunchDescription([
@@ -166,6 +182,7 @@ def generate_launch_description():
         declare_namespace_cmd,
         declare_use_sim_time_cmd,
         declare_robot_model_cmd,
+        declare_camera_cmd,
         robot_base_bringup,
         chassis_bringup,
         sensor_kit_bringup
