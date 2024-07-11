@@ -149,6 +149,16 @@ def generate_launch_description():
                 "robot_base": "ranger_mini",
             }.items(),
         ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("realsense2_camera"),
+                    "examples",
+                    "align_depth",
+                    "rs_aligned_depth.launch.py",
+                ])
+            ])
+        ),
     ])
 
     return LaunchDescription([

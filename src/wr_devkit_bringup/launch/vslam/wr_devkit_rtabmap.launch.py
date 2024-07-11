@@ -1,6 +1,7 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
-from launch.substitutions import LaunchConfiguration
+from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, AndSubstitution, NotSubstitution
 from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 
@@ -9,6 +10,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     qos = LaunchConfiguration('qos')
     localization = LaunchConfiguration('localization')
+    rviz = LaunchConfiguration('rviz')
 
     parameters={
         'frame_id':'base_link',
@@ -26,7 +28,6 @@ def generate_launch_description():
         # RTAB-Map's internal parameters are strings:
         'Reg/Force3DoF':'true',
         'Optimizer/GravitySigma':'0',
-        'Grid/Sensor':'2',
         'Grid/RangeMax':'0',
         'RGBD/ProximityMaxGraphDepth':'0',
         'RGBD/ProximityPathMaxNeighbors':'1',
@@ -69,6 +70,9 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'localization', default_value='false', description='Launch in localization mode.'),
 
+        DeclareLaunchArgument(
+            'rviz', default_value='false', description='Launch rviz2'),
+
         Node(
             condition=UnlessCondition(localization),
             package='rtabmap_slam', 
@@ -90,6 +94,7 @@ def generate_launch_description():
             remappings=remappings
         ),
 
+        # Uncomment to launch RTAB-Map's visualization tool:
         # Node(
         #     package='rtabmap_viz', 
         #     executable='rtabmap_viz', 
@@ -99,9 +104,11 @@ def generate_launch_description():
         # ),
 
         Node(
+            condition=IfCondition(AndSubstitution(NotSubstitution(localization), rviz)),
             package='rviz2', 
             executable='rviz2', 
-            output='screen'
+            output='screen',
+            arguments=['-d', PathJoinSubstitution([FindPackageShare('wr_devkit_bringup'), 'rtabmap.rviz'])]
         ),
 
         Node(
