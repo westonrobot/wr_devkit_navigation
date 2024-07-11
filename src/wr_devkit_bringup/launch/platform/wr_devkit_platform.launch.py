@@ -155,7 +155,7 @@ def generate_launch_description():
                     FindPackageShare("realsense2_camera"),
                     "examples",
                     "align_depth",
-                    "rs_aligned_depth.launch.py",
+                    "rs_align_depth_launch.py",
                 ])
             ])
         ),
