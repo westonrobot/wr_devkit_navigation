@@ -17,6 +17,7 @@ The following hardware configurations are supported:
 | Sensor kit               | Mount Location | Documentation | Source Code                                                            |
 | ------------------------ | -------------- | ------------- | ---------------------------------------------------------------------- |
 | Livox Mid360 Lidar + IMU | Top            | TBD           | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
+| Realsense D435  | Top           | TBD           | [realsense-ros](https://github.com/IntelRealSense/realsense-ros.git)  |
 | W200D Ultrasonic Sensors | Base           | TBD           | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)  |
 
 ### Robot Bases
@@ -115,7 +116,8 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 | Scout Mini                 | scout_mini             |nav2_scout_mini.param.yaml          |
 > **Note:** Ensure the `robot_model` and `robot_param` arguments in the command line match your specific robot configuration. Adjust the launch file as necessary to align with your hardware and software setup
 
-### Sample 2D SLAM ([Cartographer Mapping](https://google-cartographer-ros.readthedocs.io/en/latest/index.html))
+### Sample 2D SLAM 
+#### [Cartographer Mapping](https://google-cartographer-ros.readthedocs.io/en/latest/index.html)
 
 * Bringup Robot
     ```bash
@@ -137,7 +139,7 @@ Below is the typical workflow to bring up the robot and run some sample applicat
     $ ros2 run nav2_map_server map_saver_cli -f <your_map_name>
     ```
 
-### Sample Navigation ([Nav2](https://docs.nav2.org/index.html))
+#### Sample [nav2 navigation](https://docs.nav2.org/index.html)
 
 * Bringup Robot
     ```bash
@@ -155,6 +157,39 @@ Below is the typical workflow to bring up the robot and run some sample applicat
       $ ros2 launch nav2_bringup rviz_launch.py
       ```
 
+### Sample 2D Visual SLAM
+#### [RTAB-map](https://github.com/introlab/rtabmap_ros.git)
+> **Note:** RTAB-Map requires an RGB-D camera (e.g., Intel RealSense D435) for operation. Ensure your camera is properly connected and configured before using RTAB-Map.
+* Bringup Robot
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini camera:=true
+    ```
+* vSLAM
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_rtabmap.launch.py rviz:=false
+    ```
+    * To view the mapping result, set *rviz* to true if a monitor is connected to the robot's PC.
+    * Alternatively, you can clone this repository to your computer and load the rviz configuration located at *"src/wr_devkit_bringup/rviz/rtabmap.rviz"*.
+    * After building the map, you can exit the program directly. The map will automatically save as *rtabmap.db* in the main directory under *.ros*.
+
+#### Sample [nav2 navigation](https://docs.nav2.org/index.html)
+* Bringup Robot
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini camera:=true
+    ```
+* Launch RTAB-map localization mode
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_rtabmap.launch.py localization:=true
+    ```
+* Launch Nav2
+    ```bash
+    $ ros2 launch wr_devkit_bringup wr_devkit_nav2_rtab.launch.py robot_param:=nav2_scout_mini.param.yaml
+    ```
+    * To set the navigation goal, load the rviz configuration located at *"src/wr_devkit_bringup/rviz/nav2_default_view.rviz"*.
+    * Or run rviz2 on another pc via
+      ```bash
+      $ ros2 launch nav2_bringup rviz_launch.py
+      ```
 
 ## Notes
-* The sample applications (Nav2/SLAM) are designed to be ran separately and should not be ran at the same time.
+* The sample applications (Nav2/SLAM/vSLAM) are designed to be ran separately and should not be ran at the same time.
