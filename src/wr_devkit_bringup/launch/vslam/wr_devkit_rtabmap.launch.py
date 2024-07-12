@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
+from launch.actions import DeclareLaunchArgument, GroupAction
 from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, AndSubstitution, NotSubstitution
 from launch.conditions import IfCondition, UnlessCondition
@@ -59,20 +59,32 @@ def generate_launch_description():
         ('depth/image', '/camera/camera/aligned_depth_to_color/image_raw')
     ]
 
-    return LaunchDescription([
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation (Gazebo) clock if true'
+    )
 
-        DeclareLaunchArgument(
-            'use_sim_time', default_value='false', description='Use simulation (Gazebo) clock if true'),
-        
-        DeclareLaunchArgument(
-            'qos', default_value='2', description='QoS used for input sensor topics'),
-            
-        DeclareLaunchArgument(
-            'localization', default_value='false', description='Launch in localization mode.'),
+    declare_qos_cmd = DeclareLaunchArgument(
+        'qos', 
+        default_value='2', 
+        description='QoS used for input sensor topics'
+    )
 
-        DeclareLaunchArgument(
-            'rviz', default_value='false', description='Launch rviz2'),
+    declare_localization_cmd = DeclareLaunchArgument(
+        'localization',
+        default_value='false',
+        description='Launch in localization mode.'
+    )
 
+    declare_rviz_cmd = DeclareLaunchArgument(
+        'rviz',
+        default_value='false',
+        description='Launch rviz2'
+    )
+
+    # ----------- RTAB-Map -----------
+    rtabmap_slam_bringup = GroupAction([
         Node(
             condition=UnlessCondition(localization),
             package='rtabmap_slam', 
@@ -82,7 +94,17 @@ def generate_launch_description():
             remappings=remappings,
             arguments=['-d']
         ),
-        
+
+        Node(
+            condition=IfCondition(AndSubstitution(NotSubstitution(localization), rviz)),
+            package='rviz2', 
+            executable='rviz2', 
+            arguments=[PathJoinSubstitution([FindPackageShare('wr_devkit_bringup'), 'rtabmap.rviz'])],
+            output='screen'
+        ),
+    ])
+
+    rtabmap_localization_bringup = GroupAction([
         Node(
             condition=IfCondition(localization),
             package='rtabmap_slam', 
@@ -93,8 +115,10 @@ def generate_launch_description():
                'Mem/InitWMWithAllNodes':'True'}],
             remappings=remappings
         ),
+    ])
 
-        # Uncomment to launch RTAB-Map's visualization tool:
+    # Uncomment to launch RTAB-Map's visualization tool:
+    rtabmap_viz_bringup = GroupAction([
         # Node(
         #     package='rtabmap_viz', 
         #     executable='rtabmap_viz', 
@@ -102,12 +126,14 @@ def generate_launch_description():
         #     parameters=[parameters],
         #     remappings=remappings
         # ),
+    ])
 
-        Node(
-            condition=IfCondition(AndSubstitution(NotSubstitution(localization), rviz)),
-            package='rviz2', 
-            executable='rviz2', 
-            output='screen',
-            arguments=[PathJoinSubstitution([FindPackageShare('wr_devkit_bringup'), 'rtabmap.rviz'])]
-        ),
+    return LaunchDescription([
+        declare_use_sim_time_cmd,
+        declare_qos_cmd,
+        declare_localization_cmd,
+        declare_rviz_cmd,
+        rtabmap_slam_bringup,
+        rtabmap_localization_bringup,
+        rtabmap_viz_bringup
     ])
