@@ -167,14 +167,14 @@ def generate_launch_description():
             ]),
             condition=IfCondition(camera)
         ),
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='ugv_devkit_v1_base_link_to_base_camera',
-            arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
-                    '--yaw', '0', '--pitch', '0', '--roll', '0',
-                    '--frame-id', 'ugv_devkit_v1_base_link', '--child-frame-id', 'camera_link']
-        )
+        # Node(
+        #     package='tf2_ros',
+        #     executable='static_transform_publisher',
+        #     name='ugv_devkit_v1_base_link_to_base_camera',
+        #     arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
+        #             '--yaw', '0', '--pitch', '0', '--roll', '0',
+        #             '--frame-id', 'ugv_devkit_v1_base_link', '--child-frame-id', 'camera_link']
+        # )
     ])
 
     return LaunchDescription([

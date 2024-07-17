@@ -6,9 +6,9 @@
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:arg name="front_camera" default="realsense_d435"/>
-  <xacro:arg name="rear_camera" default="realsense_d435"/>
-  <xacro:arg name="left_camera" default="realsense_d435"/>
-  <xacro:arg name="right_camera" default="realsense_d435"/>
+  <xacro:arg name="rear_camera" default="rgb_camera"/>
+  <xacro:arg name="left_camera" default="rgb_camera"/>
+  <xacro:arg name="right_camera" default="rgb_camera"/>
 
   <material name="silver">
     <color rgba="0.700 0.700 0.700 1.000"/>

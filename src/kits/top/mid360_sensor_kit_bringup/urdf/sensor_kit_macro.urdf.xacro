@@ -3,10 +3,18 @@
 
   <xacro:macro name="perception_kit" params="camera_pos camera_type *origin">
 
+    <xacro:arg name="use_nominal_extrinsics" default="false"/>
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
     <xacro:property name="type" value="${camera_type}" />
 
-    <xacro:if value="${type in ['realsense_d435', 'rgb_camera']}">
-      <link name="${camera_pos}_camera_link">
+    <xacro:if value="${type in ['realsense_d435']}">
+      <xacro:sensor_d435 parent="perception_kit_base_link" name="camera1" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+        <origin xyz="0.1 0 0" rpy="0 0 0"/>
+      </xacro:sensor_d435>
+    </xacro:if>
+
+    <xacro:if value="${type in ['rgb_camera']}">
+      <link name="${camera_pos}_rgb_camera_link">
         <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
