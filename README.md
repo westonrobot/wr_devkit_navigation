@@ -159,10 +159,10 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 
 ### Sample 2D Visual SLAM
 #### [RTAB-map](https://github.com/introlab/rtabmap_ros.git)
-> **Note:** RTAB-Map requires an RGB-D camera (e.g., Intel RealSense D435) for operation. Ensure your camera is properly connected and configured before using RTAB-Map.
+> **Note:** RTAB-Map requires an RGB-D camera (e.g., Intel RealSense D435) for operation. Ensure your camera is properly connected and configured before using RTAB-Map. In this sample mapping, the realsense camera is installed at the front position of the perception layer.
 * Bringup Robot
     ```bash
-    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini camera:=true
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini front_camera:=realsense_d435
     ```
 * vSLAM
     ```bash
@@ -175,7 +175,7 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 #### Sample [nav2 navigation](https://docs.nav2.org/index.html)
 * Bringup Robot
     ```bash
-    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini camera:=true
+    $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini front_camera:=realsense_d435
     ```
 * Launch RTAB-map localization mode
     ```bash

@@ -19,6 +19,10 @@ This package is meant to be a starting point for users to build upon and customi
     | namespace     | Top-level namespace          | ""               |
     | use_sim_time  | Whether to use sim time      | False            |
     | robot_model   | Whether to use sim time      | ranger_mini_v2   |
+    | front_camera  | Front camera model           | none             |
+    | rear_camera   | Rear camera model            | none             |
+    | left_camera   | Left camera model            | none             |
+    | right_camera  | Right camera model           | none             |
 
 * [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D SLAM using cartographer

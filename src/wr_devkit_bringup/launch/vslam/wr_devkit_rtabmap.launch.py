@@ -29,6 +29,8 @@ def generate_launch_description():
         'Reg/Force3DoF':'true',
         'Optimizer/GravitySigma':'0',
         'Grid/RangeMax':'0',
+        'GFTT/MinDistance':'5',
+        'GFTT/QualityLevel':'0.0001',
         'RGBD/ProximityMaxGraphDepth':'0',
         'RGBD/ProximityPathMaxNeighbors':'1',
         'RGBD/AngularUpdate':'0.05',
@@ -54,9 +56,9 @@ def generate_launch_description():
     remappings=[
         ('odom','/odom'),
         ('scan','/scan'),
-        ('rgb/image', '/camera/camera/color/image_raw'),
-        ('rgb/camera_info', '/camera/camera/color/camera_info'),
-        ('depth/image', '/camera/camera/aligned_depth_to_color/image_raw')
+        ('rgb/image', '/front_d435/front_d435/color/image_raw'),
+        ('rgb/camera_info', '/front_d435/front_d435/color/camera_info'),
+        ('depth/image', '/front_d435/front_d435/depth/image_rect_raw')
     ]
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
