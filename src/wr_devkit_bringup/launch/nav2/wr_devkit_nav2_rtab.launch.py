@@ -101,7 +101,7 @@ def generate_launch_description():
 
     declare_robot_param_cmd = DeclareLaunchArgument(
         "robot_param",
-        default_value="nav2_scout_mini.param.yaml",
+        default_value="nav2_scout_mini_rtab.param.yaml",
         description="Path to the scout mini robot parameters file",
     )
 

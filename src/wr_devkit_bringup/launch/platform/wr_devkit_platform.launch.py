@@ -197,6 +197,8 @@ def generate_launch_description():
                 ])
             ]),
             launch_arguments={
+                "camera_name": "front_d435",
+                "camera_namespace": "front_d435",
                 "rgb_camera.color_profile": "640,480,15",
                 "depth_module.depth_profile": "640,480,15",
                 "depth_module.infra_profile": "640,480,15",
@@ -204,15 +206,7 @@ def generate_launch_description():
                 "pointcloud.stream_filter": "0",
                 "pointcloud.stream_index_filter": "-1"
             }.items(),
-        ),
-        # Node(
-        #     package='tf2_ros',
-        #     executable='static_transform_publisher',
-        #     name='ugv_devkit_v1_base_link_to_base_camera',
-        #     arguments=['--x', '0.0', '--y', '0.0', '--z', '0.150',
-        #             '--yaw', '0', '--pitch', '0', '--roll', '0',
-        #             '--frame-id', 'ugv_devkit_v1_base_link', '--child-frame-id', 'camera_link']
-        # )
+        )
     ])
 
     return LaunchDescription([

@@ -16,19 +16,15 @@ import xacro
 
 class Xacro(Substitution):
     def __init__(self, file_path: SomeSubstitutionsType, mappings: Dict[str, SomeSubstitutionsType] = {}, verbose: bool = False):
-        """Create a TemplateSubstitution."""
         super().__init__()
         self.__file_path = normalize_to_list_of_substitutions(file_path)
         self.__mappings = {key: normalize_to_list_of_substitutions(value) for key, value in mappings.items()}
         self.__verbose = verbose
     
     def describe(self) -> Text:
-        """Return a description of this substitution as a string."""
         return f"Xacro: {self.__file_path}"
 
     def perform(self, context: LaunchContext) -> Text:
-        """Perform the substitution by returning the string with values substituted."""
-
         file_path = perform_substitutions(context, self.__file_path)
         mappings = {key: perform_substitutions(context, value) for key, value in self.__mappings.items()}
 
