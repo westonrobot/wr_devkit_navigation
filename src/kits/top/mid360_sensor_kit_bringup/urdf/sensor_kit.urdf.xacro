@@ -2,13 +2,14 @@
 <robot name="mid360_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find mid360_sensor_kit_bringup)/urdf/sensor_kit_macro.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:arg name="front_camera" default="realsense_d435"/>
-  <xacro:arg name="rear_camera" default="rgb_camera"/>
-  <xacro:arg name="left_camera" default="rgb_camera"/>
-  <xacro:arg name="right_camera" default="rgb_camera"/>
+  <xacro:arg name="front_camera" default=""/>
+  <xacro:arg name="rear_camera" default=""/>
+  <xacro:arg name="left_camera" default=""/>
+  <xacro:arg name="right_camera" default=""/>
 
   <material name="silver">
     <color rgba="0.700 0.700 0.700 1.000"/>
@@ -66,19 +67,19 @@
   </link>
 
   <joint name="perception_kit_base_joint" type="fixed">
-    <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="top_sensor_kit_link" />
     <child link="perception_kit_base_link" />
   </joint>
 
   <link name="perception_kit_base_link">
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
       <mass value="0.0" />
       <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="0.0" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
       <geometry>
         <mesh
           filename="package://mid360_sensor_kit_bringup/meshes/perception_kit_base_link.stl"
@@ -87,7 +88,7 @@
       <material name="silver" />
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
       <geometry>
         <mesh
           filename="package://mid360_sensor_kit_bringup/meshes/perception_kit_base_link.stl"
@@ -97,19 +98,19 @@
   </link>
 
   <xacro:perception_kit camera_pos="front" camera_type="$(arg front_camera)">
-    <origin xyz="0.12 0 0.025" rpy="0 0 0" />
+    <origin xyz="0.118 0 -0.025" rpy="0 0 0" />
   </xacro:perception_kit>
 
   <xacro:perception_kit camera_pos="rear" camera_type="$(arg rear_camera)">
-    <origin xyz="-0.12 0 0.025" rpy="0 0 ${M_PI}" />
+    <origin xyz="-0.118 0 -0.025" rpy="0 0 ${M_PI}" />
   </xacro:perception_kit>
   
   <xacro:perception_kit camera_pos="left" camera_type="$(arg left_camera)">
-    <origin xyz="0 0.085 0.025" rpy="0 0 ${M_PI/2}" />
+    <origin xyz="0 0.083 -0.025" rpy="0 0 ${M_PI/2}" />
   </xacro:perception_kit>
   
   <xacro:perception_kit camera_pos="right" camera_type="$(arg right_camera)">
-    <origin xyz="0 -0.085 0.025" rpy="0 0 -${M_PI/2}" />
+    <origin xyz="0 -0.083 -0.025" rpy="0 0 -${M_PI/2}" />
   </xacro:perception_kit>
 
 </robot>

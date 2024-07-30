@@ -1,17 +1,54 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import GroupAction, DeclareLaunchArgument
+from launch.conditions import IfCondition
+from launch.launch_context import LaunchContext
 from launch_ros.actions import Node, PushRosNamespace
 from launch_ros.substitutions import FindPackageShare
+from launch.some_substitutions_type import SomeSubstitutionsType
+from launch.substitution import Substitution
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
-from launch.conditions import IfCondition
+from launch.utilities import perform_substitutions, normalize_to_list_of_substitutions
+from typing import Dict, Text
 
 import os
 import xacro
 
 
+class Xacro(Substitution):
+    def __init__(self, file_path: SomeSubstitutionsType, mappings: Dict[str, SomeSubstitutionsType] = {}, verbose: bool = False):
+        """Create a TemplateSubstitution."""
+        super().__init__()
+        self.__file_path = normalize_to_list_of_substitutions(file_path)
+        self.__mappings = {key: normalize_to_list_of_substitutions(value) for key, value in mappings.items()}
+        self.__verbose = verbose
+    
+    def describe(self) -> Text:
+        """Return a description of this substitution as a string."""
+        return f"Xacro: {self.__file_path}"
+
+    def perform(self, context: LaunchContext) -> Text:
+        """Perform the substitution by returning the string with values substituted."""
+
+        file_path = perform_substitutions(context, self.__file_path)
+        mappings = {key: perform_substitutions(context, value) for key, value in self.__mappings.items()}
+
+        if self.__verbose:
+            print(f"xacro file_path: {file_path}")
+            print(f"xacro mappings: {mappings}")
+        document = xacro.process_file(file_path, mappings=mappings)
+        document_string = document.toprettyxml(indent="  ")
+
+        if self.__verbose:
+            print(f"xacro result: {document_string}")
+        return document_string
+
 def generate_launch_description():
     # --------- Arguments ---------
+    front_camera = LaunchConfiguration("front_camera")
+    rear_camera = LaunchConfiguration("rear_camera")
+    left_camera = LaunchConfiguration("left_camera")
+    right_camera = LaunchConfiguration("right_camera")
+
     declare_use_namespace_arg = DeclareLaunchArgument(
         "use_namespace",
         default_value="false",
@@ -31,27 +68,33 @@ def generate_launch_description():
     )
 
     # --------- Description ---------
-    xacro_file = os.path.join(
-        FindPackageShare("mid360_sensor_kit_bringup").find(
-            "mid360_sensor_kit_bringup"),
-        "urdf/sensor_kit.urdf.xacro"
-    )
-    doc = xacro.process_file(xacro_file)
-    robot_desc = doc.toprettyxml(indent='  ')
-
     load_description = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         name="mid360_sensor_kit_state_publisher",
         output="screen",
-        parameters=[{"robot_description": robot_desc}],
+        parameters=[
+            {"robot_description": Xacro(
+                    file_path=os.path.join(
+                        FindPackageShare("mid360_sensor_kit_bringup").find(
+                            "mid360_sensor_kit_bringup"),
+                        "urdf/sensor_kit.urdf.xacro"
+                    ),
+                    mappings={
+                        'front_camera': front_camera,
+                        'rear_camera': rear_camera,
+                        'left_camera': left_camera,
+                        'right_camera': right_camera
+                    },
+                )
+            }
+        ],
         remappings=[
             ("robot_description", "mid360_sensor_kit_description"),
         ]
     )
 
     # --------- Drivers ---------
-
     imu_bringup = GroupAction([
         Node(
             package="wrp_ros2",
@@ -116,5 +159,5 @@ def generate_launch_description():
         declare_namespace_arg,
         load_description,
         imu_bringup,
-        lidar_bringup
+        lidar_bringup,
     ])
