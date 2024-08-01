@@ -189,7 +189,7 @@ Below is the typical workflow to bring up the robot and run some sample applicat
     ```
 * Launch Nav2
     ```bash
-    $ ros2 launch wr_devkit_bringup wr_devkit_nav2_rtab.launch.py robot_param:=nav2_scout_mini.param.yaml
+    $ ros2 launch wr_devkit_bringup wr_devkit_nav2_rtab.launch.py robot_param:=nav2_scout_mini_rtab.param.yaml
     ```
 * Set navigation goal
     * To set the navigation goal, load the rviz configuration located at *"src/wr_devkit_bringup/rviz/nav2_default_view.rviz"*.
