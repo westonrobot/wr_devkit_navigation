@@ -159,8 +159,14 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 
 ### Sample 2D Visual SLAM
 #### [RTAB-map](https://github.com/introlab/rtabmap_ros.git)
-> **Note:** RTAB-Map requires an RGB-D camera (e.g., Intel RealSense D435) for operation. Ensure your camera is properly connected and configured before using RTAB-Map. In this sample mapping, the realsense camera is installed at the front position of the perception layer.
-* Bringup Robot
+> **Note:** RTAB-Map requires an RGB-D camera (e.g., Intel RealSense D435) for operation. Ensure your camera is properly connected and configured before using RTAB-Map. In this sample mapping, one realsense camera is installed at the front position of the perception layer. Let's say you have more than one realsense camera connected and the front camera serial number is 207322251310, add in the argument *serial_no:="'207322251310'"* in the terminal when [bringing up robot](#bringup-robot).
+
+* How to know the serial number?
+    ```bash
+    $ rs-enumerate-devices -s
+    ```
+
+* <a name="bringup-robot"></a> Bringup Robot
     ```bash
     $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini front_camera:=realsense_d435
     ```
