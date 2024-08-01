@@ -11,6 +11,10 @@ from launch.conditions import IfCondition
 
 def generate_launch_description():
     robot_model = LaunchConfiguration("robot_model")
+    front_camera = LaunchConfiguration("front_camera", default="none")
+    rear_camera = LaunchConfiguration("rear_camera", default="none")
+    left_camera = LaunchConfiguration("left_camera", default="none")
+    right_camera = LaunchConfiguration("right_camera", default="none")
 
     declare_use_namespace_cmd = DeclareLaunchArgument(
         "use_namespace",
@@ -153,12 +157,6 @@ def generate_launch_description():
     ])
 
     # --------- Sensor kits ---------
-    # params = dict([aa for aa in [aa.split(':=') for aa in sys.argv] if len(aa) == 2])
-    # camera_type = params.get('camera', []).split(',')
-    # print(camera_type)
-    # for i in camera:
-    #     print(i)
-
     sensor_kit_bringup = GroupAction([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -169,10 +167,10 @@ def generate_launch_description():
                 ])
             ]),
             launch_arguments={
-                "front_camera": LaunchConfiguration("front_camera", default="none"),
-                "rear_camera": LaunchConfiguration("rear_camera", default="none"),
-                "left_camera": LaunchConfiguration("left_camera", default="none"),
-                "right_camera": LaunchConfiguration("right_camera", default="none")
+                "front_camera": front_camera,
+                "rear_camera": rear_camera,
+                "left_camera": left_camera,
+                "right_camera": right_camera
             }.items(),
         ),
         IncludeLaunchDescription(
@@ -196,6 +194,7 @@ def generate_launch_description():
                     "rs_launch.py",
                 ])
             ]),
+            condition=IfCondition(PythonExpression(["'", front_camera, "' == 'realsense_d435'"])),
             launch_arguments={
                 "camera_name": "front_d435",
                 "camera_namespace": "front_d435",
