@@ -198,9 +198,9 @@ def generate_launch_description():
             launch_arguments={
                 "camera_name": "front_d435",
                 "camera_namespace": "front_d435",
-                "rgb_camera.color_profile": "848,480,15",
-                "depth_module.depth_profile": "848,480,15",
-                "depth_module.infra_profile": "848,480,15",
+                "rgb_camera.color_profile": "640,480,15",
+                "depth_module.depth_profile": "640,480,15",
+                "depth_module.infra_profile": "640,480,15",
                 "pointcloud.enable": "true",
                 "pointcloud.stream_filter": "0",
                 "pointcloud.stream_index_filter": "-1"
