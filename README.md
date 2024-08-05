@@ -2,7 +2,7 @@
 
 ![default workflow](https://github.com/westonrobot/wr_devkit_navigation/actions/workflows/default.yml/badge.svg?branch=main)
 
-This repository provides a reference setup when using the mobile robot development kit from Weston Robot.
+This repository provides a head start for mobile robot development when using the development kit from Weston Robot. It includes 2 mapping setups: [2D SLAM](#sample-2d-slam) with Cartographer and [2D VSLAM](#sample-2d-visual-slam) with RTAB. Both setups are integrated with Nav2 navigation, enabling autonomous waypoint navigation for your robot.
 
 ## Requirements
 
