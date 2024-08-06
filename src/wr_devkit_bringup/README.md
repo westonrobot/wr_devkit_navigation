@@ -12,6 +12,7 @@ This package is meant to be a starting point for users to build upon and customi
     * Chassis: ugv_devkit_v1
     * Base sensor kit: w200d_sensor_kit
     * Top sensor kit: mid360_sensor_kit
+    * Camera model: realsense_d435 / rgb_camera
   
     | Argument      | Description                  | Default Value    |
     | ------------- | ---------------------------- | ---------------- |
