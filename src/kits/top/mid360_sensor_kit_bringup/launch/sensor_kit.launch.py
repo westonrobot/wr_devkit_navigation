@@ -1,12 +1,13 @@
 from launch import LaunchDescription
-from launch.actions import GroupAction, DeclareLaunchArgument
+from launch.actions import GroupAction, DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import IfCondition
 from launch.launch_context import LaunchContext
 from launch_ros.actions import Node, PushRosNamespace
 from launch_ros.substitutions import FindPackageShare
 from launch.some_substitutions_type import SomeSubstitutionsType
 from launch.substitution import Substitution
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch.utilities import perform_substitutions, normalize_to_list_of_substitutions
 from typing import Dict, Text
 
@@ -39,6 +40,7 @@ class Xacro(Substitution):
         return document_string
 
 def generate_launch_description():
+
     # --------- Arguments ---------
     front_camera = LaunchConfiguration("front_camera")
     rear_camera = LaunchConfiguration("rear_camera")
@@ -150,10 +152,33 @@ def generate_launch_description():
         ),
     ])
 
+    # --------- Cameras ---------
+    camera_type = [front_camera, rear_camera, left_camera, right_camera]
+    camera_pos = ['front', 'rear', 'left', 'right']
+    
+    camera_bringup = GroupAction([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("realsense2_camera"),
+                    "launch",
+                    "rs_launch.py",
+                ])
+            ]),
+            condition=IfCondition(PythonExpression(["'", type, "' == 'realsense_d435'"])),
+            launch_arguments={
+                "camera_name": pos + "_d435",
+                "camera_namespace": pos + "_d435",
+                "config_file": PathJoinSubstitution([FindPackageShare("mid360_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
+            }.items(),
+        ) for type, pos in zip(camera_type, camera_pos)
+    ])
+
     return LaunchDescription([
         declare_use_namespace_arg,
         declare_namespace_arg,
         load_description,
         imu_bringup,
         lidar_bringup,
+        camera_bringup
     ])

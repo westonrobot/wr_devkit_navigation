@@ -92,12 +92,6 @@ The following hardware configurations are supported:
 
     The build process should finish without any errors.
 
-* Install ROS packages **(Make sure you have ros2 installed first)**
-    ```bash
-    $ chmod +x ros2_packages.sh
-    $ ./ros2_packages.sh
-    ```
-
 ## Running the packages
 Sample launch files can be found in the [wr_devkit_bringup](./src/wr_devkit_bringup/) package. They are meant to be used as a starting point for your own development and can be customized to your needs.
 

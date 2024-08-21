@@ -13,10 +13,17 @@ ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
 
 ## Launch Files
 * [sensor_kit.launch.py](./launch/sensor_kit.launch.py)
+  * Sample launch file to launch the top sensor kit sensors with the following configuration
+    * Camera model: realsense_d435 / rgb_camera
+
   | Argument      | Description                  | Default Value |
   | ------------- | ---------------------------- | ------------- |
   | use_namespace | Whether to apply a namespace | False         |
   | namespace     | Top-level namespace          | ""            |
+  | front_camera  | Front camera model           | none          |
+  | rear_camera   | Rear camera model            | none          |
+  | left_camera   | Left camera model            | none          |
+  | right_camera  | Right camera model           | none          |
 
 ## Nodes
 The package will launch the various sensors and their associated driver nodes/supporting nodes

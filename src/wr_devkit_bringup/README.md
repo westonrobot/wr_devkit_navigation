@@ -12,7 +12,6 @@ This package is meant to be a starting point for users to build upon and customi
     * Chassis: ugv_devkit_v1
     * Base sensor kit: w200d_sensor_kit
     * Top sensor kit: mid360_sensor_kit
-    * Camera model: realsense_d435 / rgb_camera
   
     | Argument      | Description                  | Default Value    |
     | ------------- | ---------------------------- | ---------------- |
@@ -20,10 +19,6 @@ This package is meant to be a starting point for users to build upon and customi
     | namespace     | Top-level namespace          | ""               |
     | use_sim_time  | Whether to use sim time      | False            |
     | robot_model   | Whether to use sim time      | ranger_mini_v2   |
-    | front_camera  | Front camera model           | none             |
-    | rear_camera   | Rear camera model            | none             |
-    | left_camera   | Left camera model            | none             |
-    | right_camera  | Right camera model           | none             |
 
 * [wr_devkit_cartographer.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D SLAM using cartographer
@@ -41,7 +36,7 @@ This package is meant to be a starting point for users to build upon and customi
 * [wr_devkit_rtabmap.launch.py](./launch/slam/wr_devkit_cartographer.launch.py)
   * Sample launch file to perform 2D vSLAM using rtabmap
   * Assumes the following configuration by default
-    * Top sensor kit: mid360_sensor_kit + realsense d435
+    * Top sensor kit: mid360_sensor_kit
 
   | Argument           | Description                                 | Default Value |
   | ------------------ | ------------------------------------------- | ------------- |
@@ -72,7 +67,7 @@ This package is meant to be a starting point for users to build upon and customi
   * Sample launch file to perform 2D navigation using nav2
     * Robot base: Scout mini
     * Chassis: ugv_devkit_v1
-    * Top sensor kit: mid360_sensor_kit + realsense d435
+    * Top sensor kit: mid360_sensor_kit
 
   | Argument       | Description                  | Default Value                                        |
   | -------------- | ---------------------------- | ---------------------------------------------------- |
