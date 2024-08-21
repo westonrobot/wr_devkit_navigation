@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="mid360_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="perception_kit" params="camera_pos camera_type *origin">
+  <xacro:macro name="camera_kit" params="camera_pos camera_type *origin">
 
     <xacro:arg name="use_nominal_extrinsics" default="false"/>
     <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
@@ -35,7 +35,7 @@
       </link>
 
       <joint name="${camera_pos}_camera_joint" type="fixed">
-        <parent link="perception_kit_base_link" />
+        <parent link="camera_kit_base_link" />
         <child link="${camera_pos}_camera_link" />
         <xacro:insert_block name="origin" />
       </joint>
