@@ -16,7 +16,7 @@ The following hardware configurations are supported:
 ### Sensor Kits
 | Sensor kit               | Mount Location | Documentation | Source Code                                                            |
 | ------------------------ | -------------- | ------------- | ---------------------------------------------------------------------- |
-| Livox Mid360 Lidar + IMU | Top            | TBD           | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
+| Livox Mid360 Lidar + IMU | Top            | TBD           | [perception_sensor_kit_bringup](./src/kits/top/perception_sensor_kit_bringup/) |
 | Realsense D435  | Top           | TBD           | [realsense-ros](https://github.com/IntelRealSense/realsense-ros.git)  |
 | W200D Ultrasonic Sensors | Base           | TBD           | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)  |
 

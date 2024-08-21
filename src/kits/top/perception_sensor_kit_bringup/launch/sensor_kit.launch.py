@@ -69,13 +69,13 @@ def generate_launch_description():
     load_description = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        name="mid360_sensor_kit_state_publisher",
+        name="perception_sensor_kit_state_publisher",
         output="screen",
         parameters=[
             {"robot_description": Xacro(
                     file_path=os.path.join(
-                        FindPackageShare("mid360_sensor_kit_bringup").find(
-                            "mid360_sensor_kit_bringup"),
+                        FindPackageShare("perception_sensor_kit_bringup").find(
+                            "perception_sensor_kit_bringup"),
                         "urdf/sensor_kit.urdf.xacro"
                     ),
                     mappings={
@@ -88,7 +88,7 @@ def generate_launch_description():
             }
         ],
         remappings=[
-            ("robot_description", "mid360_sensor_kit_description"),
+            ("robot_description", "perception_sensor_kit_description"),
         ]
     )
 
@@ -101,7 +101,7 @@ def generate_launch_description():
             output="screen",
             parameters=[
                 PathJoinSubstitution([
-                    FindPackageShare('mid360_sensor_kit_bringup'),
+                    FindPackageShare('perception_sensor_kit_bringup'),
                     'config',
                     'hipnuc.param.yaml'])
             ],
@@ -109,7 +109,7 @@ def generate_launch_description():
     ])
 
     user_config_path = PathJoinSubstitution([
-        FindPackageShare('mid360_sensor_kit_bringup'),
+        FindPackageShare('perception_sensor_kit_bringup'),
         "config",
         "MID360_config.json"
     ])
@@ -122,7 +122,7 @@ def generate_launch_description():
             output='screen',
             parameters=[
                 PathJoinSubstitution([
-                    FindPackageShare('mid360_sensor_kit_bringup'),
+                    FindPackageShare('perception_sensor_kit_bringup'),
                     'config',
                     'mid360.param.yaml']),
                 {"user_config_path": user_config_path},
@@ -169,7 +169,7 @@ def generate_launch_description():
             launch_arguments={
                 "camera_name": pos + "_d435",
                 "camera_namespace": pos + "_d435",
-                "config_file": PathJoinSubstitution([FindPackageShare("mid360_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
+                "config_file": PathJoinSubstitution([FindPackageShare("perception_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
             }.items(),
         ) for type, pos in zip(camera_type, camera_pos)
     ])

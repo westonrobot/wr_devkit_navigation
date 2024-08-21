@@ -17,7 +17,7 @@
 
   <!-- Sensor kits-->
   <exec_depend>w200d_sensor_kit_bringup</exec_depend>
-  <exec_depend>mid360_sensor_kit_bringup</exec_depend>
+  <exec_depend>perception_sensor_kit_bringup</exec_depend>
 
   <!-- Navigation -->
   <exec_depend>launch_ros</exec_depend>
