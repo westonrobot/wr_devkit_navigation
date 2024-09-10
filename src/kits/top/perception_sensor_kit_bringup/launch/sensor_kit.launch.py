@@ -156,7 +156,7 @@ def generate_launch_description():
     camera_type = [front_camera, rear_camera, left_camera, right_camera]
     camera_pos = ['front', 'rear', 'left', 'right']
     
-    camera_bringup = GroupAction([
+    realsense_camera_bringup = GroupAction([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
@@ -174,11 +174,33 @@ def generate_launch_description():
         ) for type, pos in zip(camera_type, camera_pos)
     ])
 
+    rgb_camera_bringup = GroupAction([
+        Node(
+            condition=IfCondition(PythonExpression(["'", type, "' == 'rgb_camera'"])),
+            package="usb_cam",
+            executable="usb_cam_node_exe",
+            namespace=pos + "_rgb",
+            name=pos + "_rgb",
+            output="screen",
+            parameters=[
+                PathJoinSubstitution([FindPackageShare("perception_sensor_kit_bringup"), 'config', 'rgb_camera.yaml'])
+            ],
+            remappings=[
+                ('image_raw', f'{pos}_rgb/image_raw'),
+                ('image_raw/compressed', f'{pos}_rgb/image_raw/compressed'),
+                ('image_raw/compressedDepth', f'{pos}_rgb/image_raw/compressedDepth'),
+                ('image_raw/theora', f'{pos}_rgb/image_raw/theora'),
+                ('camera_info', f'{pos}_rgb/camera_info')
+            ]
+        ) for type, pos in zip(camera_type, camera_pos)
+    ])
+
     return LaunchDescription([
         declare_use_namespace_arg,
         declare_namespace_arg,
         load_description,
         imu_bringup,
         lidar_bringup,
-        camera_bringup
+        realsense_camera_bringup,
+        rgb_camera_bringup
     ])

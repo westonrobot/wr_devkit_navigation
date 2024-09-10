@@ -46,6 +46,11 @@ The package will launch the various sensors and their associated driver nodes/su
     * Package: pointcloud_to_laserscan
     * Executable/Plugin: pointcloud_to_laserscan_node
     * Name: pointcloud_to_laserscan_node
+* RGB Camera
+  * Driver
+    * Package: usb_cam
+    * Executable: usb_cam_node_exe
+    * Name: <CAMERA_POSITION>_rgb
 
 ## Configuration
 To better suit your needs/setup, you may need to adjust these accordingly
