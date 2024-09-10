@@ -46,6 +46,17 @@
         <origin xyz="-0.005 0.006 -0.0085" rpy="0 0 0"/>
       </xacro:sensor_d435>
     </xacro:if>
+
+    <xacro:if value="${type in ['rgb_camera']}">
+      <link name="${camera_pos}_rgb_link">
+      </link>
+
+      <joint name="${camera_pos}_rgb_joint" type="fixed">
+        <origin xyz="0.007 0 0.004" rpy="0 0 0" />
+        <parent link="${camera_pos}_camera_link" />
+        <child link="${camera_pos}_rgb_link" />
+      </joint>
+    </xacro:if>
   </xacro:macro>
 
 </robot>
