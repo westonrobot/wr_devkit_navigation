@@ -46,6 +46,11 @@ The package will launch the various sensors and their associated driver nodes/su
     * Package: pointcloud_to_laserscan
     * Executable/Plugin: pointcloud_to_laserscan_node
     * Name: pointcloud_to_laserscan_node
+* Realsense Camera
+  * Driver
+    * Package: realsense2_camera
+    * Launch File: rs_launch.py
+    * Name: <CAMERA_POSITION>_d435
 * RGB Camera
   * Driver
     * Package: usb_cam
