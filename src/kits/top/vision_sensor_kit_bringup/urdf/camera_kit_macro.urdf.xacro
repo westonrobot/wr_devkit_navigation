@@ -37,7 +37,7 @@
     </xacro:if>
 
     <xacro:if value="${type in ['realsense_d435i']}">
-      <xacro:sensor_d435i parent="${camera_pos}_camera_link" name="${camera_pos}_d435" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+      <xacro:sensor_d435i parent="${camera_pos}_camera_link" name="${camera_pos}_d435i" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
         <origin xyz="-0.005 0.006 -0.0085" rpy="0 0 0"/>
       </xacro:sensor_d435i>
     </xacro:if>

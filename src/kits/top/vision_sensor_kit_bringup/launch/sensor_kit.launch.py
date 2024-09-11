@@ -59,25 +59,25 @@ def generate_launch_description():
 
     declare_front_camera_arg = DeclareLaunchArgument(
         "front_camera",
-        default_value="realsense_d435i",
+        default_value="",
         description="Front camera type",
     )
 
     declare_rear_camera_arg = DeclareLaunchArgument(
         "rear_camera",
-        default_value="realsense_d435i",
+        default_value="",
         description="Rear camera type",
     )
 
     declare_left_camera_arg = DeclareLaunchArgument(
         "left_camera",
-        default_value="realsense_d435i",
+        default_value="",
         description="Left camera type",
     )
 
     declare_right_camera_arg = DeclareLaunchArgument(
         'right_camera',
-        default_value="realsense_d435i",
+        default_value="",
         description='Right camera type'
     )
 
