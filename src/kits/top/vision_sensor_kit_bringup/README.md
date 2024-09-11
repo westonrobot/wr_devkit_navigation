@@ -1,9 +1,9 @@
 # Vision Sensor Kit Bringup
 
-![Mid360 Sensor Kit](docs/mid360_sensor_kit.png)
+![Mid360 Sensor Kit](docs/vision_sensor_kit.png)
 
 ## Overview
-This package contains launch and config files to launch Weston Robot's Mid360 Sensor Kit (top).
+This package contains launch and config files to launch Weston Robot's Vision Sensor Kit (top).
 
 ## Usage
 To launch the Vision Sensor Kit, use the provided launch file:
@@ -32,30 +32,16 @@ The package will launch the various sensors and their associated driver nodes/su
   * Package: robot_state_publisher
   * Executable/Plugin: robot_state_publisher
   * Name: vision_sensor_kit_state_publisher
-* IMU
-  * Driver
-    * Package: wrp_ros2
-    * Executable/Plugin: imu_sensor_node
-    * Name: ch104m_imu_sensor_node
-* Lidar
-  * Driver
-    * Package: livox_ros_driver2
-    * Executable/Plugin: livox_ros_driver2_node
-    * Name: livox_lidar_publisher
-  * Pointcloud -> LaserScan
-    * Package: pointcloud_to_laserscan
-    * Executable/Plugin: pointcloud_to_laserscan_node
-    * Name: pointcloud_to_laserscan_node
 * Realsense Camera
   * Driver
     * Package: realsense2_camera
     * Launch File: rs_launch.py
-    * Name: <CAMERA_POSITION>_d435
+    * Name: <CAMERA_POSITION>_cam/d435i
 * RGB Camera
   * Driver
     * Package: usb_cam
     * Executable: usb_cam_node_exe
-    * Name: <CAMERA_POSITION>_rgb
+    * Name: <CAMERA_POSITION>_cam/rgb
 
 ## Configuration
 To better suit your needs/setup, you may need to adjust these accordingly
