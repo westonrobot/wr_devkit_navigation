@@ -45,11 +45,6 @@ class Xacro(Substitution):
 def generate_launch_description():
 
     # --------- Arguments ---------
-    front_camera = LaunchConfiguration("front_camera")
-    rear_camera = LaunchConfiguration("rear_camera")
-    left_camera = LaunchConfiguration("left_camera")
-    right_camera = LaunchConfiguration("right_camera")
-
     declare_use_namespace_arg = DeclareLaunchArgument(
         "use_namespace",
         default_value="false",

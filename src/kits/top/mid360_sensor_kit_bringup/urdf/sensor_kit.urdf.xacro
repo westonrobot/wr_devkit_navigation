@@ -2,12 +2,7 @@
 <robot name="mid360_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
-
-  <xacro:arg name="front_camera" default="" />
-  <xacro:arg name="rear_camera" default="" />
-  <xacro:arg name="left_camera" default="" />
-  <xacro:arg name="right_camera" default="" />
-
+  
   <material name="silver">
     <color rgba="0.700 0.700 0.700 1.000" />
   </material>
@@ -25,7 +20,7 @@
       <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
       <geometry>
         <mesh
-          filename="package://mid360_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
           scale="0.001 0.001 0.001" />
       </geometry>
       <material name="silver" />
@@ -34,7 +29,7 @@
       <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
       <geometry>
         <mesh
-          filename="package://mid360_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
           scale="0.001 0.001 0.001" />
       </geometry>
     </collision>

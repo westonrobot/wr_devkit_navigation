@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="vision_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find vision_sensor_kit_bringup)/urdf/camera_kit_macro.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:arg name="front_camera_type" default="" />
+  <xacro:arg name="rear_camera_type" default="" />
+  <xacro:arg name="left_camera_type" default="" />
+  <xacro:arg name="right_camera_type" default="" />
+
+  <material name="silver">
+    <color rgba="0.700 0.700 0.700 1.000" />
+  </material>
+
+  <link name="top_sensor_kit_link" />
+
+  <joint name="vision_sensor_kit_base_joint" type="fixed">
+    <origin xyz="0 0 0.045" rpy="0 0 0" />
+    <parent link="top_sensor_kit_link" />
+    <child link="vision_sensor_kit_base_link" />
+  </joint>
+
+  <link name="vision_sensor_kit_base_link">
+    <visual>
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
+      <geometry>
+        <mesh
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
+      <geometry>
+        <mesh
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:camera_kit camera_pos="front" camera_type="$(arg front_camera_type)"
+    parent_link="vision_sensor_kit_base_link">
+    <origin xyz="0.118 0 -0.025" rpy="0 0 0" />
+  </xacro:camera_kit>
+
+  <xacro:camera_kit camera_pos="rear" camera_type="$(arg rear_camera_type)"
+    parent_link="vision_sensor_kit_base_link">
+    <origin xyz="-0.118 0 -0.025" rpy="0 0 ${M_PI}" />
+  </xacro:camera_kit>
+
+  <xacro:camera_kit camera_pos="left" camera_type="$(arg left_camera_type)"
+    parent_link="vision_sensor_kit_base_link">
+    <origin xyz="0 0.083 -0.025" rpy="0 0 ${M_PI/2}" />
+  </xacro:camera_kit>
+
+  <xacro:camera_kit camera_pos="right" camera_type="$(arg right_camera_type)"
+    parent_link="vision_sensor_kit_base_link">
+    <origin xyz="0 -0.083 -0.025" rpy="0 0 -${M_PI/2}" />
+  </xacro:camera_kit>
+
+</robot>

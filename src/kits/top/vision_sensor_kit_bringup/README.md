@@ -1,4 +1,4 @@
-# Perception Sensor Kit Bringup
+# Vision Sensor Kit Bringup
 
 ![Mid360 Sensor Kit](docs/mid360_sensor_kit.png)
 
@@ -6,9 +6,9 @@
 This package contains launch and config files to launch Weston Robot's Mid360 Sensor Kit (top).
 
 ## Usage
-To launch the Mid360 Sensor Kit, use the provided launch file:
+To launch the Vision Sensor Kit, use the provided launch file:
 ```bash
-ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
+ros2 launch vision_sensor_kit_bringup sensor_kit.launch.py
 ```
 
 ## Launch Files
@@ -16,14 +16,14 @@ ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
   * Sample launch file to launch the top sensor kit sensors with the following configuration
     * Camera model: realsense_d435i / rgb_camera
 
-  | Argument      | Description                  | Default Value |
-  | ------------- | ---------------------------- | ------------- |
-  | use_namespace | Whether to apply a namespace | False         |
-  | namespace     | Top-level namespace          | ""            |
-  | front_camera  | Front camera model           | none          |
-  | rear_camera   | Rear camera model            | none          |
-  | left_camera   | Left camera model            | none          |
-  | right_camera  | Right camera model           | none          |
+  | Argument      | Description                  | Default Value                                                                    |
+  | ------------- | ---------------------------- | -------------------------------------------------------------------------------- |
+  | use_namespace | Whether to apply a namespace | `False`                                                                          |
+  | namespace     | Top-level namespace          | `""`                                                                             |
+  | front_camera  | Front camera model           | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
+  | rear_camera   | Rear camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
+  | left_camera   | Left camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
+  | right_camera  | Right camera model           | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
 
 ## Nodes
 The package will launch the various sensors and their associated driver nodes/supporting nodes
@@ -31,7 +31,7 @@ The package will launch the various sensors and their associated driver nodes/su
 * Description
   * Package: robot_state_publisher
   * Executable/Plugin: robot_state_publisher
-  * Name: mid360_sensor_kit_state_publisher
+  * Name: vision_sensor_kit_state_publisher
 * IMU
   * Driver
     * Package: wrp_ros2
