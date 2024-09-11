@@ -155,7 +155,7 @@ def generate_launch_description():
             output="screen",
             parameters=[
                 PathJoinSubstitution([FindPackageShare(
-                    "vision_sensor_kit_bringup"), 'config', 'rgb_camera.yaml'])
+                    "vision_sensor_kit_bringup"), 'config', 'rgb_camera.param.yaml'])
             ],
             remappings=[
                 ('image_raw', f'{pos}_rgb/image_raw'),
