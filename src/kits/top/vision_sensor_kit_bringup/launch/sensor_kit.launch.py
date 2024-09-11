@@ -81,10 +81,10 @@ def generate_launch_description():
         description='Right camera type'
     )
 
-    front_camera = LaunchConfiguration("front_camera")
-    rear_camera = LaunchConfiguration("rear_camera")
-    left_camera = LaunchConfiguration("left_camera")
-    right_camera = LaunchConfiguration("right_camera")
+    front_camera_type = LaunchConfiguration("front_camera")
+    rear_camera_type = LaunchConfiguration("rear_camera")
+    left_camera_type = LaunchConfiguration("left_camera")
+    right_camera_type = LaunchConfiguration("right_camera")
 
     # --------- Namespace ---------
     PushRosNamespace(
@@ -106,10 +106,10 @@ def generate_launch_description():
                     "urdf/sensor_kit.urdf.xacro"
                 ),
                 mappings={
-                    'front_camera_type': front_camera,
-                    'rear_camera_type': rear_camera,
-                    'left_camera_type': left_camera,
-                    'right_camera_type': right_camera
+                    'front_camera_type': front_camera_type,
+                    'rear_camera_type': rear_camera_type,
+                    'left_camera_type': left_camera_type,
+                    'right_camera_type': right_camera_type
                 },
             )
             }
@@ -121,51 +121,52 @@ def generate_launch_description():
 
     # --------- Drivers ---------
     # --------- Cameras ---------
-    # camera_type = [front_camera, rear_camera, left_camera, right_camera]
-    # camera_pos = ['front', 'rear', 'left', 'right']
+    camera_types = [front_camera_type, rear_camera_type,
+                    left_camera_type, right_camera_type]
+    camera_positions = ['front', 'rear', 'left', 'right']
 
-    # realsense_camera_bringup = GroupAction([
-    #     IncludeLaunchDescription(
-    #         PythonLaunchDescriptionSource([
-    #             PathJoinSubstitution([
-    #                 FindPackageShare("realsense2_camera"),
-    #                 "launch",
-    #                 "rs_launch.py",
-    #             ])
-    #         ]),
-    #         condition=IfCondition(PythonExpression(
-    #             ["'", cam_type, "' == 'realsense_d435i'"])),
-    #         launch_arguments={
-    #             "camera_name": pos + "_d435",
-    #             "camera_namespace": pos + "_d435",
-    #             "config_file": PathJoinSubstitution([FindPackageShare("perception_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
-    #         }.items(),
-    #     ) for cam_type, pos in zip(camera_type, camera_pos)
-    # ])
+    realsense_camera_bringup = GroupAction([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("realsense2_camera"),
+                    "launch",
+                    "rs_launch.py",
+                ])
+            ]),
+            condition=IfCondition(PythonExpression(
+                ["'", cam_type, "' == 'realsense_d435i'"])),
+            launch_arguments={
+                "camera_name": "d435i",
+                "camera_namespace": pos + "_cam",
+                "config_file": PathJoinSubstitution([FindPackageShare("vision_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
+            }.items(),
+        ) for cam_type, pos in zip(camera_types, camera_positions)
+    ])
 
-    # rgb_camera_bringup = GroupAction([
-    #     Node(
-    #         condition=IfCondition(PythonExpression(
-    #             ["'", type, "' == 'rgb_camera'"])),
-    #         package="usb_cam",
-    #         executable="usb_cam_node_exe",
-    #         namespace=pos + "_rgb",
-    #         name=pos + "_rgb",
-    #         output="screen",
-    #         parameters=[
-    #             PathJoinSubstitution([FindPackageShare(
-    #                 "perception_sensor_kit_bringup"), 'config', 'rgb_camera.yaml'])
-    #         ],
-    #         remappings=[
-    #             ('image_raw', f'{pos}_rgb/image_raw'),
-    #             ('image_raw/compressed', f'{pos}_rgb/image_raw/compressed'),
-    #             ('image_raw/compressedDepth',
-    #              f'{pos}_rgb/image_raw/compressedDepth'),
-    #             ('image_raw/theora', f'{pos}_rgb/image_raw/theora'),
-    #             ('camera_info', f'{pos}_rgb/camera_info')
-    #         ]
-    #     ) for cam_type, pos in zip(camera_type, camera_pos)
-    # ])
+    rgb_camera_bringup = GroupAction([
+        Node(
+            condition=IfCondition(PythonExpression(
+                ["'", cam_type, "' == 'rgb_camera'"])),
+            package="usb_cam",
+            executable="usb_cam_node_exe",
+            namespace=pos + "_cam",
+            name="rgb",
+            output="screen",
+            parameters=[
+                PathJoinSubstitution([FindPackageShare(
+                    "vision_sensor_kit_bringup"), 'config', 'rgb_camera.yaml'])
+            ],
+            remappings=[
+                ('image_raw', f'{pos}_rgb/image_raw'),
+                ('image_raw/compressed', f'{pos}_rgb/image_raw/compressed'),
+                ('image_raw/compressedDepth',
+                 f'{pos}_rgb/image_raw/compressedDepth'),
+                ('image_raw/theora', f'{pos}_rgb/image_raw/theora'),
+                ('camera_info', f'{pos}_rgb/camera_info')
+            ]
+        ) for cam_type, pos in zip(camera_types, camera_positions)
+    ])
 
     return LaunchDescription([
         declare_use_namespace_arg,
@@ -175,6 +176,6 @@ def generate_launch_description():
         declare_left_camera_arg,
         declare_right_camera_arg,
         load_description,
-        # realsense_camera_bringup,
-        # rgb_camera_bringup
+        realsense_camera_bringup,
+        rgb_camera_bringup
     ])
