@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>wr_devkit_bringup</name>
-  <version>0.1.0</version>
+  <name>mid360_sensor_kit_bringup</name>
+  <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="hans.kurnia@westonrobot.com">hanskw</maintainer>
   <license>TODO: License declaration</license>
@@ -12,20 +12,13 @@
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
-  <!-- Chassis-->
-  <exec_depend>ugv_devkit_v1_bringup</exec_depend>
-
-  <!-- Sensor kits-->
-  <exec_depend>w200d_sensor_kit_bringup</exec_depend>
-  <exec_depend>mid360_sensor_kit_bringup</exec_depend>
-
-  <!-- Navigation -->
-  <exec_depend>launch_ros</exec_depend>
-  <exec_depend>navigation2</exec_depend>
-  <exec_depend>nav2_common</exec_depend>
-
-  <!-- SLAM -->
-  <exec_depend>cartographer_ros</exec_depend>
+  <exec_depend>wrp_ros2</exec_depend>
+  <exec_depend>livox_ros_driver2</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
+  <exec_depend>vision_sensor_kit_bringup</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

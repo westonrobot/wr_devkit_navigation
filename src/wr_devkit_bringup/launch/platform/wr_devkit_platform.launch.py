@@ -161,7 +161,16 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
-                    FindPackageShare("perception_sensor_kit_bringup"),
+                    FindPackageShare("mid360_sensor_kit_bringup"),
+                    "launch",
+                    "sensor_kit.launch.py",
+                ])
+            ]),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("vision_sensor_kit_bringup"),
                     "launch",
                     "sensor_kit.launch.py",
                 ])
@@ -185,7 +194,8 @@ def generate_launch_description():
             launch_arguments={
                 "robot_base": "ranger_mini",
             }.items(),
-        )
+        ),
+        
     ])
 
     return LaunchDescription([

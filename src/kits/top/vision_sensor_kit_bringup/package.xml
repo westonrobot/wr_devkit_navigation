@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>perception_sensor_kit_bringup</name>
+  <name>vision_sensor_kit_bringup</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="hans.kurnia@westonrobot.com">hanskw</maintainer>
@@ -12,21 +12,12 @@
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
-  <exec_depend>wrp_ros2</exec_depend>
-  <exec_depend>livox_ros_driver2</exec_depend>
   <exec_depend>xacro</exec_depend>
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>joint_state_publisher</exec_depend>
-  <exec_depend>pointcloud_to_laserscan</exec_depend>
 
   <!-- Perception -->
   <exec_depend>librealsense2</exec_depend>
   <exec_depend>realsense2_camera</exec_depend>
   <exec_depend>realsense2_description</exec_depend>
-
-  <!-- VSLAM-->
-  <exec_depend>rtabmap_slam</exec_depend>
-  <exec_depend>rtabmap_viz</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

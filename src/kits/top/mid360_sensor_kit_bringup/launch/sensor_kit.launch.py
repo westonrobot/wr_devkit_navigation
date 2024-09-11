@@ -19,15 +19,17 @@ class Xacro(Substitution):
     def __init__(self, file_path: SomeSubstitutionsType, mappings: Dict[str, SomeSubstitutionsType] = {}, verbose: bool = False):
         super().__init__()
         self.__file_path = normalize_to_list_of_substitutions(file_path)
-        self.__mappings = {key: normalize_to_list_of_substitutions(value) for key, value in mappings.items()}
+        self.__mappings = {key: normalize_to_list_of_substitutions(
+            value) for key, value in mappings.items()}
         self.__verbose = verbose
-    
+
     def describe(self) -> Text:
         return f"Xacro: {self.__file_path}"
 
     def perform(self, context: LaunchContext) -> Text:
         file_path = perform_substitutions(context, self.__file_path)
-        mappings = {key: perform_substitutions(context, value) for key, value in self.__mappings.items()}
+        mappings = {key: perform_substitutions(
+            context, value) for key, value in self.__mappings.items()}
 
         if self.__verbose:
             print(f"xacro file_path: {file_path}")
@@ -39,14 +41,10 @@ class Xacro(Substitution):
             print(f"xacro result: {document_string}")
         return document_string
 
+
 def generate_launch_description():
 
     # --------- Arguments ---------
-    front_camera = LaunchConfiguration("front_camera")
-    rear_camera = LaunchConfiguration("rear_camera")
-    left_camera = LaunchConfiguration("left_camera")
-    right_camera = LaunchConfiguration("right_camera")
-
     declare_use_namespace_arg = DeclareLaunchArgument(
         "use_namespace",
         default_value="false",
@@ -69,26 +67,19 @@ def generate_launch_description():
     load_description = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        name="perception_sensor_kit_state_publisher",
+        name="mid360_sensor_kit_state_publisher",
         output="screen",
         parameters=[
             {"robot_description": Xacro(
-                    file_path=os.path.join(
-                        FindPackageShare("perception_sensor_kit_bringup").find(
-                            "perception_sensor_kit_bringup"),
-                        "urdf/sensor_kit.urdf.xacro"
-                    ),
-                    mappings={
-                        'front_camera': front_camera,
-                        'rear_camera': rear_camera,
-                        'left_camera': left_camera,
-                        'right_camera': right_camera
-                    },
-                )
+                file_path=PathJoinSubstitution([
+                    FindPackageShare("mid360_sensor_kit_bringup"),
+                    "urdf/sensor_kit.urdf.xacro"
+                ]),
+            )
             }
         ],
         remappings=[
-            ("robot_description", "perception_sensor_kit_description"),
+            ("robot_description", "mid360_sensor_kit_description"),
         ]
     )
 
@@ -101,7 +92,7 @@ def generate_launch_description():
             output="screen",
             parameters=[
                 PathJoinSubstitution([
-                    FindPackageShare('perception_sensor_kit_bringup'),
+                    FindPackageShare('mid360_sensor_kit_bringup'),
                     'config',
                     'hipnuc.param.yaml'])
             ],
@@ -109,7 +100,7 @@ def generate_launch_description():
     ])
 
     user_config_path = PathJoinSubstitution([
-        FindPackageShare('perception_sensor_kit_bringup'),
+        FindPackageShare('mid360_sensor_kit_bringup'),
         "config",
         "MID360_config.json"
     ])
@@ -122,7 +113,7 @@ def generate_launch_description():
             output='screen',
             parameters=[
                 PathJoinSubstitution([
-                    FindPackageShare('perception_sensor_kit_bringup'),
+                    FindPackageShare('mid360_sensor_kit_bringup'),
                     'config',
                     'mid360.param.yaml']),
                 {"user_config_path": user_config_path},
@@ -152,55 +143,10 @@ def generate_launch_description():
         ),
     ])
 
-    # --------- Cameras ---------
-    camera_type = [front_camera, rear_camera, left_camera, right_camera]
-    camera_pos = ['front', 'rear', 'left', 'right']
-    
-    realsense_camera_bringup = GroupAction([
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([
-                PathJoinSubstitution([
-                    FindPackageShare("realsense2_camera"),
-                    "launch",
-                    "rs_launch.py",
-                ])
-            ]),
-            condition=IfCondition(PythonExpression(["'", type, "' == 'realsense_d435'"])),
-            launch_arguments={
-                "camera_name": pos + "_d435",
-                "camera_namespace": pos + "_d435",
-                "config_file": PathJoinSubstitution([FindPackageShare("perception_sensor_kit_bringup"), 'config', pos + '_d435.param.yaml'])
-            }.items(),
-        ) for type, pos in zip(camera_type, camera_pos)
-    ])
-
-    rgb_camera_bringup = GroupAction([
-        Node(
-            condition=IfCondition(PythonExpression(["'", type, "' == 'rgb_camera'"])),
-            package="usb_cam",
-            executable="usb_cam_node_exe",
-            namespace=pos + "_rgb",
-            name=pos + "_rgb",
-            output="screen",
-            parameters=[
-                PathJoinSubstitution([FindPackageShare("perception_sensor_kit_bringup"), 'config', 'rgb_camera.yaml'])
-            ],
-            remappings=[
-                ('image_raw', f'{pos}_rgb/image_raw'),
-                ('image_raw/compressed', f'{pos}_rgb/image_raw/compressed'),
-                ('image_raw/compressedDepth', f'{pos}_rgb/image_raw/compressedDepth'),
-                ('image_raw/theora', f'{pos}_rgb/image_raw/theora'),
-                ('camera_info', f'{pos}_rgb/camera_info')
-            ]
-        ) for type, pos in zip(camera_type, camera_pos)
-    ])
-
     return LaunchDescription([
         declare_use_namespace_arg,
         declare_namespace_arg,
         load_description,
         imu_bringup,
-        lidar_bringup,
-        realsense_camera_bringup,
-        rgb_camera_bringup
+        lidar_bringup
     ])
