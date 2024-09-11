@@ -15,7 +15,7 @@ This folder contains "bringup" packages for the different sensor/chassis kits we
 * Chassis Kits
   * [UGV Devkit V1.0](./chassis/ugv_devkit_v1_bringup/)
 * Top Sensor Kits
-  * [Mid360 Lidar + IMU + Camera](./top/perception_sensor_kit_bringup/)
+  * [Mid360 Lidar + IMU + Camera](./top/mid360_sensor_kit_bringup/)
 * Base Sensor Kits
   * [W200d ultrasonic](./base/w200d_sensor_kit_bringup/)
 

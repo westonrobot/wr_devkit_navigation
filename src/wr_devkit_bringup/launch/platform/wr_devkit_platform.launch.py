@@ -161,7 +161,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
-                    FindPackageShare("perception_sensor_kit_bringup"),
+                    FindPackageShare("mid360_sensor_kit_bringup"),
                     "launch",
                     "sensor_kit.launch.py",
                 ])

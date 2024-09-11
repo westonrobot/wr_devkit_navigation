@@ -17,11 +17,11 @@ The following hardware configurations are supported:
 | UGV Development Kit V1.0 | [wiki](https://docs.westonrobot.net/wr_dev_kit/ugv_dev_kit_v1.html) | [ugv_devkit_v1_bringup](./src/kits/chassis/ugv_devkit_v1_bringup/) |
 
 ### Sensor Kits
-| Sensor kit               | Mount Location | Documentation                                                                                                                             | Source Code                                                                    |
-| ------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Livox Mid360 Lidar + IMU | Top            | [docs](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_mid360_extension.html#ref-ugv-devkit-livox-mid360-imu-extension) | [perception_sensor_kit_bringup](./src/kits/top/perception_sensor_kit_bringup/) |
-| Realsense D435           | Top            | TBD                                                                                                                                       | [realsense-ros](https://github.com/IntelRealSense/realsense-ros.git)           |
-| W200D Ultrasonic Sensors | Base           | TBD                                                                                                                                       | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)          |
+| Sensor kit               | Mount Location | Documentation                                                                                                                             | Source Code                                                            |
+| ------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Livox Mid360 Lidar + IMU | Top            | [docs](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_mid360_extension.html#ref-ugv-devkit-livox-mid360-imu-extension) | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
+| Realsense D435           | Top            | TBD                                                                                                                                       | [realsense-ros](https://github.com/IntelRealSense/realsense-ros.git)   |
+| W200D Ultrasonic Sensors | Base           | TBD                                                                                                                                       | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)  |
 
 ### Robot Bases
 | Base            | Documentation                                                                      |

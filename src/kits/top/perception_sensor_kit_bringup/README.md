@@ -8,7 +8,7 @@ This package contains launch and config files to launch Weston Robot's Mid360 Se
 ## Usage
 To launch the Mid360 Sensor Kit, use the provided launch file:
 ```bash
-ros2 launch perception_sensor_kit_bringup sensor_kit.launch.py
+ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
 ```
 
 ## Launch Files
@@ -31,7 +31,7 @@ The package will launch the various sensors and their associated driver nodes/su
 * Description
   * Package: robot_state_publisher
   * Executable/Plugin: robot_state_publisher
-  * Name: perception_sensor_kit_state_publisher
+  * Name: mid360_sensor_kit_state_publisher
 * IMU
   * Driver
     * Package: wrp_ros2

@@ -19,7 +19,7 @@
           <origin xyz="-0.118 0 -0.32" rpy="${M_PI/2} 0 ${M_PI/2}" />
           <geometry>
             <mesh
-              filename="package://perception_sensor_kit_bringup/meshes/${camera_type}.stl"
+              filename="package://mid360_sensor_kit_bringup/meshes/${camera_type}.stl"
               scale="0.001 0.001 0.001" />
           </geometry>
           <material name="silver" />
@@ -28,7 +28,7 @@
           <origin xyz="-0.118 0 -0.32" rpy="${M_PI/2} 0 ${M_PI/2}" />
           <geometry>
             <mesh
-              filename="package://perception_sensor_kit_bringup/meshes/${camera_type}.stl"
+              filename="package://mid360_sensor_kit_bringup/meshes/${camera_type}.stl"
               scale="0.001 0.001 0.001" />
           </geometry>
         </collision>
