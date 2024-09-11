@@ -166,6 +166,15 @@ def generate_launch_description():
                     "sensor_kit.launch.py",
                 ])
             ]),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("vision_sensor_kit_bringup"),
+                    "launch",
+                    "sensor_kit.launch.py",
+                ])
+            ]),
             launch_arguments={
                 "front_camera": front_camera,
                 "rear_camera": rear_camera,
@@ -185,7 +194,8 @@ def generate_launch_description():
             launch_arguments={
                 "robot_base": "ranger_mini",
             }.items(),
-        )
+        ),
+        
     ])
 
     return LaunchDescription([
