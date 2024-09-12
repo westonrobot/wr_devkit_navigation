@@ -1,15 +1,20 @@
+import sys
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, GroupAction, DeclareLaunchArgument, LogInfo
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
-from launch_ros.actions import Node, PushRosNamespace, SetParameter
+from launch_ros.actions import Node, SetParameter
 from launch_ros.substitutions import FindPackageShare
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression, TextSubstitution
 from launch.conditions import IfCondition
 
 
 def generate_launch_description():
     robot_model = LaunchConfiguration("robot_model")
+    front_camera = LaunchConfiguration("front_camera", default="none")
+    rear_camera = LaunchConfiguration("rear_camera", default="none")
+    left_camera = LaunchConfiguration("left_camera", default="none")
+    right_camera = LaunchConfiguration("right_camera", default="none")
 
     declare_use_namespace_cmd = DeclareLaunchArgument(
         "use_namespace",
@@ -18,7 +23,9 @@ def generate_launch_description():
     )
 
     declare_namespace_cmd = DeclareLaunchArgument(
-        "namespace", default_value="", description="Top-level namespace"
+        "namespace", 
+        default_value="", 
+        description="Top-level namespace"
     )
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -31,6 +38,30 @@ def generate_launch_description():
         "robot_model",
         default_value="ranger_mini_v2",
         description="ranger_mini_v2, scout_mini",
+    )
+
+    declare_front_camera_cmd = DeclareLaunchArgument(
+        "front_camera",
+        default_value="",
+        description="Front camera type",
+    )
+
+    declare_rear_camera_cmd = DeclareLaunchArgument(
+        "rear_camera",
+        default_value="",
+        description="Rear camera type",
+    )
+
+    declare_left_camera_cmd = DeclareLaunchArgument(
+        "left_camera",
+        default_value="",
+        description="Left camera type",
+    )
+
+    declare_right_camera_cmd = DeclareLaunchArgument(
+        'right_camera',
+        default_value="",
+        description='Right camera type'
     )
 
     SetParameter(
@@ -134,7 +165,22 @@ def generate_launch_description():
                     "launch",
                     "sensor_kit.launch.py",
                 ])
-            ])
+            ]),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("vision_sensor_kit_bringup"),
+                    "launch",
+                    "sensor_kit.launch.py",
+                ])
+            ]),
+            launch_arguments={
+                "front_camera": front_camera,
+                "rear_camera": rear_camera,
+                "left_camera": left_camera,
+                "right_camera": right_camera
+            }.items(),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -149,6 +195,7 @@ def generate_launch_description():
                 "robot_base": "ranger_mini",
             }.items(),
         ),
+        
     ])
 
     return LaunchDescription([
@@ -156,6 +203,10 @@ def generate_launch_description():
         declare_namespace_cmd,
         declare_use_sim_time_cmd,
         declare_robot_model_cmd,
+        declare_front_camera_cmd,
+        declare_rear_camera_cmd,
+        declare_left_camera_cmd,
+        declare_right_camera_cmd,
         robot_base_bringup,
         chassis_bringup,
         sensor_kit_bringup

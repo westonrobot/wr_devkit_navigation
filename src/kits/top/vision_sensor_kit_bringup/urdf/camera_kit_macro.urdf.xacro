@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="vision_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="camera_kit" params="camera_pos camera_type parent_link *origin">
+
+    <xacro:arg name="use_nominal_extrinsics" default="false"/>
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
+    
+    <xacro:property name="type" value="${camera_type}" />
+
+    <xacro:if value="${type in ['realsense_d435i', 'rgb_camera']}">    
+      <link name="${camera_pos}_camera_link">
+        <visual>
+          <origin xyz="-0.118 0 -0.32" rpy="${M_PI/2} 0 ${M_PI/2}" />
+          <geometry>
+            <mesh
+              filename="package://vision_sensor_kit_bringup/meshes/${camera_type}.stl"
+              scale="0.001 0.001 0.001" />
+          </geometry>
+          <material name="silver" />
+        </visual>
+        <collision>
+          <origin xyz="-0.118 0 -0.32" rpy="${M_PI/2} 0 ${M_PI/2}" />
+          <geometry>
+            <mesh
+              filename="package://vision_sensor_kit_bringup/meshes/${camera_type}.stl"
+              scale="0.001 0.001 0.001" />
+          </geometry>
+        </collision>
+      </link>
+
+      <joint name="${camera_pos}_camera_joint" type="fixed">
+        <parent link="${parent_link}" />
+        <child link="${camera_pos}_camera_link" />
+        <xacro:insert_block name="origin" />
+      </joint>
+    </xacro:if>
+
+    <xacro:if value="${type in ['realsense_d435i']}">
+      <xacro:sensor_d435i parent="${camera_pos}_camera_link" name="${camera_pos}_d435i" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+        <origin xyz="-0.005 0.006 -0.0085" rpy="0 0 0"/>
+      </xacro:sensor_d435i>
+    </xacro:if>
+
+    <xacro:if value="${type in ['rgb_camera']}">
+      <link name="${camera_pos}_rgb_link">
+      </link>
+
+      <joint name="${camera_pos}_rgb_joint" type="fixed">
+        <origin xyz="0.007 0 0.004" rpy="0 0 0" />
+        <parent link="${camera_pos}_camera_link" />
+        <child link="${camera_pos}_rgb_link" />
+      </joint>
+    </xacro:if>
+  </xacro:macro>
+
+</robot>

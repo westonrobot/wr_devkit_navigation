@@ -1,4 +1,4 @@
-# Livox Mid360 Sensor Kit Bringup
+# Mid360 + IMU Sensor Kit Bringup
 
 ![Mid360 Sensor Kit](docs/mid360_sensor_kit.png)
 
@@ -13,6 +13,9 @@ ros2 launch mid360_sensor_kit_bringup sensor_kit.launch.py
 
 ## Launch Files
 * [sensor_kit.launch.py](./launch/sensor_kit.launch.py)
+  * Sample launch file to launch the top sensor kit sensors with the following configuration
+    * Camera model: realsense_d435i / rgb_camera
+
   | Argument      | Description                  | Default Value |
   | ------------- | ---------------------------- | ------------- |
   | use_namespace | Whether to apply a namespace | False         |

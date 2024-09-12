@@ -1,14 +1,42 @@
 <?xml version="1.0"?>
 <robot name="mid360_sensor_kit" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <material name="silver">
-    <color rgba="0.700 0.700 0.700 1.000"/>
-  </material>
+  <xacro:property name="M_PI" value="3.1415926535897931" />
   
-  <link name="top_sensor_kit_link"/>
+  <material name="silver">
+    <color rgba="0.700 0.700 0.700 1.000" />
+  </material>
+
+  <link name="top_sensor_kit_link" />
+
+  <joint name="vision_sensor_kit_base_joint" type="fixed">
+    <origin xyz="0 0 0.045" rpy="0 0 0" />
+    <parent link="top_sensor_kit_link" />
+    <child link="vision_sensor_kit_base_link" />
+  </joint>
+
+  <link name="vision_sensor_kit_base_link">
+    <visual>
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
+      <geometry>
+        <mesh
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.345" rpy="${M_PI/2} 0 ${M_PI/2}" />
+      <geometry>
+        <mesh
+          filename="package://vision_sensor_kit_bringup/meshes/vision_kit_base.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
 
   <joint name="mid360_sensor_kit_base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 0.045" rpy="0 0 0" />
     <parent link="top_sensor_kit_link" />
     <child link="mid360_sensor_kit_base_link" />
   </joint>
@@ -38,22 +66,22 @@
     </collision>
   </link>
 
-  <link name="ch104m_imu_frame">
-  </link>
-
-  <link name="livox_frame">
-  </link>
-
   <joint name="ch104m_imu_joint" type="fixed">
-    <origin xyz="0.035 0.0 0.03" rpy="0 0 1.5708" />
+    <origin xyz="0.035 0.0 0.03" rpy="0 0 ${M_PI/2}" />
     <parent link="mid360_sensor_kit_base_link" />
     <child link="ch104m_imu_frame" />
   </joint>
+
+  <link name="ch104m_imu_frame">
+  </link>
 
   <joint name="livox_joint" type="fixed">
     <origin xyz="0.035 0.0 0.087483" rpy="0 0 0" />
     <parent link="mid360_sensor_kit_base_link" />
     <child link="livox_frame" />
   </joint>
+
+  <link name="livox_frame">
+  </link>
 
 </robot>

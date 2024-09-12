@@ -1,0 +1,7 @@
+serial_no: ""
+rgb_camera.color_profile: 640x480x15
+depth_module.depth_profile: 640x480x15
+depth_module.infra_profile: 640x480x15
+pointcloud.enable: True
+pointcloud.stream_filter: 0
+pointcloud.stream_index_filter: -1
