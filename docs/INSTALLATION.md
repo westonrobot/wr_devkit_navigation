@@ -1,7 +1,17 @@
 # Installation Guide
-Each sensor kit and robot base has its own set of dependencies. Please follow the instructions below to install the necessary items for your specific hardware configuration.
+
+## Getting this repository
+This repository is intended to be used as a ROS2 colcon workspace itself (i.e. you do not need to create your own colcon workspace, though it is possible to do so).
+
+```bash
+$ mkdir -p <parent-directory>
+$ cd <parent-directory>
+$ git clone https://github.com/westonrobot/wr_devkit_navigation.git
+```
 
 ## Install Dependencies
+Each sensor kit and robot base has its own set of dependencies. Please follow the instructions below to install the necessary items for your specific hardware configuration.
+
 ### Common Dependencies
 The following dependencies are common to multiple sensor kits and robot bases and should be installed regardless of the specific hardware configuration.
 
@@ -61,14 +71,16 @@ All ROS driver packages are listed in the [navigation.repos](/navigation.repos) 
   | Component                           | ROS Driver Packages Needed     |
   | ----------------------------------- | ------------------------------ |
   | Livox Mid360 Lidar + IMU Sensor Kit | livox_ros_driver2<br/>wrp_ros2 |
+  | Vision Sensor Kit                   | realsense-ros<br/>usb_cam      |
+  | W200d Sensor Kit                    | wrp_ros2                       |
   | Ranger Mini 2.0                     | ranger_ros2<br/>ugv_sdk        |
-  | Vision Kit                          | realsense-ros<br/>usb_cam      |
+  | Scout Mini                          | scout_ros2<br/>ugv_sdk         |
 
 ## Build the Workspace
 
 After installing the dependencies, you can build the workspace by running the following commands:
 ```bash
-$ cd <your-workspace>/wr_devkit_navigation
+$ cd <parent-directory>/wr_devkit_navigation
 $ source /opt/ros/humble/setup.bash
 $ colcon build --symlink-install
 ```

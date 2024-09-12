@@ -1,4 +1,4 @@
-serial_no: "241122070090"
+serial_no: ""
 rgb_camera.color_profile: 640x480x15
 depth_module.depth_profile: 640x480x15
 depth_module.infra_profile: 640x480x15

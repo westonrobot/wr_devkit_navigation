@@ -18,7 +18,7 @@ This package is meant to be a starting point for users to build upon and customi
   | use_namespace | Whether to apply a namespace | False                                                                             |
   | namespace     | Top-level namespace          | ""                                                                                |
   | use_sim_time  | Whether to use sim time      | False                                                                             |
-  | robot_model   | Whether to use sim time      | ranger_mini_v2                                                                    |
+  | robot_model   | Whether to use sim time      | ranger_mini_v2<br/> Possible values: scout_mini, ranger_mini_v2                   |
   | front_camera  | Front camera model           | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
   | rear_camera   | Rear camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
   | left_camera   | Left camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
@@ -40,7 +40,7 @@ This package is meant to be a starting point for users to build upon and customi
 * [wr_devkit_rtabmap.launch.py](./launch/vslam/wr_devkit_rtabmap.launch.py)
   * Sample launch file to perform 2D vSLAM using rtabmap
   * Assumes the following configuration by default
-    * Top sensor kit: mid360_sensor_kit
+    * Top sensor kit: vision_sensor_kit
 
   | Argument     | Description                               | Default Value |
   | ------------ | ----------------------------------------- | ------------- |
@@ -71,7 +71,7 @@ This package is meant to be a starting point for users to build upon and customi
   * Sample launch file to perform 2D navigation using nav2
     * Robot base: Scout mini
     * Chassis: ugv_devkit_v1
-    * Top sensor kit: mid360_sensor_kit
+    * Top sensor kit: vision_sensor_kit
 
   | Argument       | Description                  | Default Value                          |
   | -------------- | ---------------------------- | -------------------------------------- |

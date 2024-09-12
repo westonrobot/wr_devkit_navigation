@@ -12,7 +12,7 @@ Sample launch files can be found in the [wr_devkit_bringup](/src/wr_devkit_bring
 Below is the typical workflow to bring up the robot and run some sample applications.  
 > **Remember to source the ROS Workspace first**
 
-
+> **NOTE:** This example assumes a ranger mini v2 robot base
 
 ## Setup hardware
 * Bringup CAN Bus for Robot bases
