@@ -1,4 +1,4 @@
-/front_camera/front_rgb:
+front_cam/rgb:
     ros__parameters:
       video_device: ""
       framerate: 25.0
@@ -22,7 +22,7 @@
       autofocus: false
       focus: -1
 
-/rear_camera/rear_rgb:
+rear_cam/rgb:
     ros__parameters:
       video_device: ""
       framerate: 25.0
@@ -46,7 +46,7 @@
       autofocus: false
       focus: -1
 
-/left_camera/left_rgb:
+left_cam/rgb:
     ros__parameters:
       video_device: "/dev/video4"
       framerate: 25.0
@@ -70,7 +70,7 @@
       autofocus: false
       focus: -1
 
-/right_camera/right_rgb:
+right_cam/rgb:
     ros__parameters:
       video_device: "/dev/video14"
       framerate: 25.0

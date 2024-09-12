@@ -56,9 +56,9 @@ def generate_launch_description():
     remappings=[
         ('odom','/odom'),
         ('scan','/scan'),
-        ('rgb/image', '/front_d435/front_d435/color/image_raw'),
-        ('rgb/camera_info', '/front_d435/front_d435/color/camera_info'),
-        ('depth/image', '/front_d435/front_d435/depth/image_rect_raw')
+        ('rgb/image', '/front_cam/d435i/color/image_raw'),
+        ('rgb/camera_info', '/front_cam/d435i/color/camera_info'),
+        ('depth/image', '/front_cam/d435i/depth/image_rect_raw')
     ]
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
