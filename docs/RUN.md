@@ -2,19 +2,19 @@
 This guide will walk you through running the sample applications included in the Weston Robot Development Kit.
 
 This repository includes 2 sample mapping setups:
- 1. [2D SLAM](#sample-2d-slam) with Cartographer
- 2. [2D VSLAM](#sample-2d-visual-slam) with RTAB
+ 1. [2D SLAM](#cartographer-2d-slam-bringup) with Cartographer
+ 2. [2D VSLAM](#rtabmap-2d-vslam-bringup) with RTABMap
 
 Both setups are integrated with Nav2 navigation, enabling autonomous waypoint navigation for your robot.
 
 Sample launch files can be found in the [wr_devkit_bringup](/src/wr_devkit_bringup/) package. They are meant to be used as a starting point for your own development and can be customized to your needs.
 
-Below is the typical workflow to bring up the robot and run some sample applications.  
-> **Remember to source the ROS Workspace first**
+> A more detailed guide can be found on our [documentation site](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_ros2_navigation_sample_setup_guide.html#ugv-devkit-ros2-navigation-sample-setup-guide)
 
-> **NOTE:** This example assumes a ranger mini v2 robot base
+Below is the typical workflow to bring up the robot and run some sample applications.
 
 ## Setup hardware
+> **NOTE:** This example assumes a ranger mini v2 robot base
 * Bringup CAN Bus for Robot bases
   ```bash
   $ sudo ip link set can0 up type can bitrate 500000
@@ -22,6 +22,8 @@ Below is the typical workflow to bring up the robot and run some sample applicat
   ```
 
 ## Platform Bringup
+  > **Remember to source the ROS Workspace first**
+
   The platform bringup launch file initializes the robot hardware and required ROS2 nodes. It is a prerequisite for running the other applications.
   ```bash
     $ ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=ranger_mini_v2
