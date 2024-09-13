@@ -1,0 +1,60 @@
+name: default
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!experiment-*"
+  pull_request:
+    branches:
+      - main
+      - devel
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: "westonrobot/ros:humble-ci-latest"
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Install wrp-sdk
+        run: |
+          sudo install -m 0755 -d /etc/apt/keyrings
+          curl -fsSL http://deb.westonrobot.net/signing.key | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/weston-robot.gpg
+          sudo chmod a+r /etc/apt/keyrings/weston-robot.gpg
+          echo \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/weston-robot.gpg] http://deb.westonrobot.net/$(lsb_release -cs) $(lsb_release -cs) main" | \
+            sudo tee /etc/apt/sources.list.d/weston-robot.list > /dev/null
+          sudo apt-get update
+          sudo apt-get install -y wrp-sdk
+      - name: Install latest lely-can
+        run: |
+          add-apt-repository ppa:lely/ppa
+          apt-get update && apt-get -y install pkg-config liblely-coapp-dev liblely-co-tools
+      - name: Install Livox-SDK2
+        run: |
+          mkdir /tmp/livox && cd /tmp/livox
+          git clone https://github.com/Livox-SDK/Livox-SDK2.git
+          cd Livox-SDK2
+          mkdir build && cd build && cmake .. && make
+          sudo make install
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Import drivers
+        run: |
+          vcs import src < navigation.repos
+      - name: Install ROS dependencies
+        run: |
+          apt-get install -y python3-rosdep
+          if [ ! -e /etc/ros/rosdep/sources.list.d/20-default.list ]; then rosdep init; fi
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          rosdep update
+          rosdep install -y -r --ignore-src --from-paths src --rosdistro ${ROS_DISTRO}
+      - name: Colcon build
+        run: |
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          colcon build --symlink-install

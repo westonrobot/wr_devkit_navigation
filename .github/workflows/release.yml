@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  VERSION: 0.2.0
+
+jobs:
+  tag-release:
+    runs-on: ["ubuntu-latest"]
+    container: "westonrobot/ubuntu:jammy-ci-latest"
+    steps:
+      - name: Create tag
+        continue-on-error: true
+        if: github.ref_name == 'main'
+        uses: westonrobot-dev/github-tag-action@v6.1
+        id: tag_version
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ env.VERSION }}
+          release_branches: "main"
+          pre_release_branches: "prerelease"
+      - name: Create Github Release
+        if: github.ref_name == 'main' && steps.tag_version.outcome == 'success'
+        uses: westonrobot-dev/workflow-dispatch@v1.2.2
+        with:
+          workflow: release-github.yml
+          ref: ${{ steps.tag_version.outputs.new_tag }}
