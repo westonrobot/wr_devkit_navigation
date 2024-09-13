@@ -6,10 +6,6 @@ on:
       - "*"
   workflow_dispatch:
 
-env:
-  CONAN_USER: ${{ secrets.ARTIFACTORY_CONAN_USERNAME }}
-  CONAN_TOKEN: ${{ secrets.ARTIFACTORY_CONAN_ACCESS_TOKEN }}
-
 jobs:
   release:
     runs-on: ["ubuntu-latest"]
