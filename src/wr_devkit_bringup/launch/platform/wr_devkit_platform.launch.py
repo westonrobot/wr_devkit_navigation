@@ -130,7 +130,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
-                    FindPackageShare("ugv_devkit_v1_bringup"),
+                    FindPackageShare("ugv_devkit_bringup"),
                     "launch",
                     "chassis.launch.py",
                 ])
@@ -143,7 +143,7 @@ def generate_launch_description():
             name="chassis_transform_publisher",
             arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.335',
                        '--yaw', '0', '--pitch', '0', '--roll', '0',
-                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_v1_base_link']
+                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_base_link']
         ),
         Node(
             condition=IfCondition(PythonExpression(["'", robot_model, "' == 'scout_mini'"])),
@@ -152,7 +152,7 @@ def generate_launch_description():
             name="chassis_transform_publisher",
             arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.250',
                        '--yaw', '0', '--pitch', '0', '--roll', '0',
-                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_v1_base_link']
+                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_base_link']
         ),
     ])
 

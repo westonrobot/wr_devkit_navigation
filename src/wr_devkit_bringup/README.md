@@ -9,7 +9,7 @@ This package is meant to be a starting point for users to build upon and customi
 * [wr_devkit_platform.launch.py](./launch/platform/wr_devkit_platform.launch.py)
   * Sample launch file to launch the Weston Robot Devkit platform with the following configuration
     * Robot base: Ranger mini v2 / Scout mini
-    * Chassis: ugv_devkit_v1
+    * Chassis: ugv_devkit_v1.1
     * Base sensor kit: w200d_sensor_kit
     * Top sensor kit: mid360_sensor_kit + vision_sensor_kit
   
@@ -52,7 +52,7 @@ This package is meant to be a starting point for users to build upon and customi
 * [wr_devkit_nav2.launch.py](./launch/nav2/wr_devkit_nav2.launch.py)
   * Sample launch file to perform 2D navigation using nav2
     * Robot base: Ranger mini v2
-    * Chassis: ugv_devkit_v1
+    * Chassis: ugv_devkit_v1.1
     * Top sensor kit: mid360_sensor_kit
 
   | Argument       | Description                  | Default Value                          |
@@ -70,7 +70,7 @@ This package is meant to be a starting point for users to build upon and customi
 * [wr_devkit_nav2_rtab.launch.py](./launch/nav2/wr_devkit_nav2.launch.py)
   * Sample launch file to perform 2D navigation using nav2
     * Robot base: Scout mini
-    * Chassis: ugv_devkit_v1
+    * Chassis: ugv_devkit_v1.1
     * Top sensor kit: vision_sensor_kit
 
   | Argument       | Description                  | Default Value                          |

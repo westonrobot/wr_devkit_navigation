@@ -63,7 +63,7 @@ The following dependencies are specific to each robot base and should be install
 ### ROS Driver Packages
 All ROS driver packages are listed in the [navigation.repos](/navigation.repos) file. You can import the ROS driver packages by running the following command:
   ```bash
-  $ vcs import --recursive src < ./navigation.repository
+  $ vcs import --recursive src < ./navigation.repos
   ```
   > **Note:** You might not need to build all the driver packages. You can comment out the packages you do not need in the `navigation.repos` file. Refer to the table below for the ROS driver packages for each sensor kit and robot base.
 
