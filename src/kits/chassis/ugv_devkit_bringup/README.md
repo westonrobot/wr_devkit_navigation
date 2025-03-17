@@ -13,10 +13,11 @@ ros2 launch ugv_devkit_bringup chassis.launch.py
 
 ## Launch Files
 * [chassis.launch.py](./launch/chassis.launch.py)
-  | Argument      | Description                  | Default Value |
-  | ------------- | ---------------------------- | ------------- |
-  | use_namespace | Whether to apply a namespace | False         |
-  | namespace     | Top-level namespace          | ""            |
+  | Argument              | Description                        | Default Value |
+  | --------------------- | ---------------------------------- | ------------- |
+  | use_namespace         | Whether to apply a namespace       | False         |
+  | namespace             | Top-level namespace                | ""            |
+  | chassis_extension     | UGV Devkit Chassis Extension V1.1  | False         |
 
 ## Nodes
 The package will launch the various sensors and their associated driver nodes/supporting nodes

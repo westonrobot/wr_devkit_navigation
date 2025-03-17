@@ -19,6 +19,7 @@ This package is meant to be a starting point for users to build upon and customi
   | namespace     | Top-level namespace          | ""                                                                                |
   | use_sim_time  | Whether to use sim time      | False                                                                             |
   | robot_model   | Whether to use sim time      | ranger_mini_v2<br/> Possible values: scout_mini, ranger_mini_v2                   |
+  | chassis_extension   | Whether to use UGV devkit chassis extension V1.1     | False                  |
   | front_camera  | Front camera model           | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
   | rear_camera   | Rear camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
   | left_camera   | Left camera model            | `""`<br/> Possible values: rgb_camera, realsense_d435i<br/>Leave blank for "none" |
