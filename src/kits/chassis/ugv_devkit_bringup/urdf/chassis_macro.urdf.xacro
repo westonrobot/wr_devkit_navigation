@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <robot name="ugv_devkit_v1.1" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="extension_kit" params="chassis_extension parent_link *origin">
+    <xacro:macro name="extension_kit" params="use_chassis_extension parent_link *origin">
        <xacro:arg name="use_nominal_extrinsics" default="false"/>
        <xacro:property name="chassis_joint_z" value="0"/>
        <xacro:property name="chassis_joint_parent_link" value="${parent_link}"/>
 
        <xacro:property name="M_PI" value="3.1415926535897931" />
 
-       <xacro:if value="${chassis_extension}">
+       <xacro:if value="${use_chassis_extension}">
         <link name="ugv_devkit_v1.1_chassis_extension_link">
             <inertial>
                 <origin xyz="0 0 0.115" rpy="0 0 ${M_PI/2}" />

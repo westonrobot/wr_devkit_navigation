@@ -3,7 +3,7 @@
 
   <xacro:include filename="$(find ugv_devkit_bringup)/urdf/chassis_macro.urdf.xacro" />
 
-  <xacro:arg name="chassis_extension" default="true" />
+  <xacro:arg name="chassis_ext" default="false" />
 
   <material name="silver">
     <color rgba="0.700 0.700 0.700 1.000"/>
@@ -11,7 +11,7 @@
 
   <link name="ugv_devkit_base_link"></link>
 
-  <xacro:extension_kit chassis_extension="$(arg chassis_extension)" 
+  <xacro:extension_kit use_chassis_extension="$(arg chassis_ext)" 
     parent_link="ugv_devkit_base_link">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:extension_kit>
