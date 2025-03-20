@@ -33,9 +33,19 @@ The following dependencies are common to multiple sensor kits and robot bases an
     $ sudo add-apt-repository ppa:lely/ppa
     $ sudo apt-get update
     $ sudo apt-get install liblely-coapp-dev liblely-co-tools python3-dcf-tools pkg-config
+
     ```
     > Please refer to [this page](https://docs.westonrobot.com/software/installation_guide.html) for more details of the installation steps.  
     > Documentation for the Weston Robot Platform SDK can be found [here](https://github.com/westonrobot/wrp_sdk).
+
+### Robot Bases Dependencies
+The following dependencies are specific to each robot base and should be installed according to the specific hardware configuration.
+
+#### Ranger Mini 2.0 & Scout Mini
+* ugv_sdk dependencies
+  ```bash
+  sudo apt-get install build-essential git cmake libasio-dev
+  ```
 
 ### Sensor Kits Dependencies
 The following dependencies are specific to each sensor kit and should be installed according to the specific hardware configuration.
@@ -51,14 +61,12 @@ The following dependencies are specific to each sensor kit and should be install
     ```
     > **Note:** You can build and install the Livox-SDK2 at your preferred places other than "~/Livox-SDK2". And you can optionally remove the "Livox-SDK2" folder after installation.
 
-### Robot Bases Dependencies
-The following dependencies are specific to each robot base and should be installed according to the specific hardware configuration.
+### ROS Dependencies
+The following dependencies are required for building the workspace.
 
-#### Ranger Mini 2.0 & Scout Mini
-* ugv_sdk dependencies
-  ```bash
-  sudo apt-get install build-essential git cmake libasio-dev
-  ```
+```bash
+$ sudo apt-get install ros-humble-pcl-ros ros-humble-camera-info-manager* ros-humble-diagnostic-updater
+```
 
 ### ROS Driver Packages
 All ROS driver packages are listed in the [navigation.repos](/navigation.repos) file. You can import the ROS driver packages by running the following command:
