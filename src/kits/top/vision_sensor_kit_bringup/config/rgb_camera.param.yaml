@@ -48,7 +48,7 @@ rear_cam/rgb:
 
 left_cam/rgb:
     ros__parameters:
-      video_device: "/dev/video4"
+      video_device: ""
       framerate: 25.0
       io_method: "mmap"
       frame_id: "left_rgb_link"
@@ -72,7 +72,7 @@ left_cam/rgb:
 
 right_cam/rgb:
     ros__parameters:
-      video_device: "/dev/video14"
+      video_device: ""
       framerate: 25.0
       io_method: "mmap"
       frame_id: "right_rgb_link"
