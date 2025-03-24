@@ -18,7 +18,7 @@ repositories:
   drivers/wrp_ros2:
     type: git
     url: https://github.com/westonrobot/wrp_ros2.git
-    version: 34fd3642a42290fe809679de36fac1914774f374
+    version: 30431fd002b7e0a67c295bbf87ab1dc9d5cbb7ee
   drivers/realsense-ros:
     type: git
     url: https://github.com/IntelRealSense/realsense-ros.git
