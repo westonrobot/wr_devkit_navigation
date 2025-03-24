@@ -1,6 +1,6 @@
 /**:
   ros__parameters:
     sensor_model: "hipnuc"
-    device_path: "/dev/ttyUSB0"
-    baud_rate: 115200
-    frame_id: "ch104m_imu_frame"
+    device_path: "/dev/ttyS0"
+    baud_rate: 921600
+    frame_id: "hi14_imu_frame"
