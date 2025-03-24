@@ -6,8 +6,8 @@ front_cam/rgb:
       frame_id: "front_rgb_link"
       pixel_format: "mjpeg2rgb"  # see usb_cam/supported_formats for list of supported formats
       av_device_format: "YUV422P"
-      image_width: 640
-      image_height: 480
+      image_width: 1280
+      image_height: 720
       camera_name: "front_rgb"
       camera_info_url: "package://usb_cam/config/camera_info.yaml"
       brightness: -1
@@ -30,8 +30,8 @@ rear_cam/rgb:
       frame_id: "rear_rgb_link"
       pixel_format: "mjpeg2rgb"  # see usb_cam/supported_formats for list of supported formats
       av_device_format: "YUV422P"
-      image_width: 640
-      image_height: 480
+      image_width: 1280
+      image_height: 720
       camera_name: "rear_rgb"
       camera_info_url: "package://usb_cam/config/camera_info.yaml"
       brightness: -1
@@ -54,8 +54,8 @@ left_cam/rgb:
       frame_id: "left_rgb_link"
       pixel_format: "mjpeg2rgb"  # see usb_cam/supported_formats for list of supported formats
       av_device_format: "YUV422P"
-      image_width: 640
-      image_height: 480
+      image_width: 1280
+      image_height: 720
       camera_name: "left_rgb"
       camera_info_url: "package://usb_cam/config/camera_info.yaml"
       brightness: -1
@@ -78,8 +78,8 @@ right_cam/rgb:
       frame_id: "right_rgb_link"
       pixel_format: "mjpeg2rgb"  # see usb_cam/supported_formats for list of supported formats
       av_device_format: "YUV422P"
-      image_width: 640
-      image_height: 480
+      image_width: 1280
+      image_height: 720
       camera_name: "right_rgb"
       camera_info_url: "package://usb_cam/config/camera_info.yaml"
       brightness: -1
