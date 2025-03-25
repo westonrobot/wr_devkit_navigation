@@ -12,9 +12,9 @@ The code contained in this repository is meant to be used as a reference for int
 The following hardware configurations are supported:
 
 ### Chassis
-| Name                     | Documentation                                                       | Source Code                                                        |
-| ------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| UGV Development Kit V1.0 | [wiki](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1.html) | [ugv_devkit_v1_bringup](./src/kits/chassis/ugv_devkit_v1_bringup/) |
+| Name                     | Documentation                                                         | Source Code                                                        |
+| ------------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| UGV Development Kit V1.1 | [wiki](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1.1.html) | [ugv_devkit_bringup](./src/kits/chassis/ugv_devkit_bringup/) |
 
 ### Sensor Kits
 | Sensor kit               | Mount Location | Documentation                                                                                                                             | Source Code                                                            |

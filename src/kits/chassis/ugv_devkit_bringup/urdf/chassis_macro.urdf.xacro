@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot name="ugv_devkit_v1.1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="extension_kit" params="use_chassis_extension parent_link *origin">
+       <xacro:arg name="use_nominal_extrinsics" default="false"/>
+       <xacro:property name="chassis_joint_z" value="0"/>
+       <xacro:property name="chassis_joint_parent_link" value="${parent_link}"/>
+
+       <xacro:property name="M_PI" value="3.1415926535897931" />
+
+       <xacro:if value="${use_chassis_extension}">
+        <link name="ugv_devkit_v1.1_chassis_extension_link">
+            <inertial>
+                <origin xyz="0 0 0.115" rpy="0 0 ${M_PI/2}" />
+                <mass value="0.1" />
+                <inertia ixx="0.0001" iyy="0.0001" izz="0.0001" ixy="0" iyz="0"
+                    ixz="0" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0.115" rpy="0 0 ${M_PI/2}" />
+                <geometry>
+                    <mesh filename="package://ugv_devkit_bringup/meshes/ugv_devkit_v1.1_chassis_extension_link.stl"
+                    scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name="silver" />
+            </visual>
+            <collision>
+                <origin xyz="0 0 0.115" rpy="0 0 ${M_PI/2}" />
+                <geometry>
+                    <mesh filename="package://ugv_devkit_bringup/meshes/ugv_devkit_v1.1_chassis_extension_link.stl"
+                    scale="0.001 0.001 0.001" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="chassis_extension_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <parent link="${parent_link}" />
+            <child link="ugv_devkit_v1.1_chassis_extension_link" />
+        </joint>
+
+        <xacro:property name="chassis_joint_z" value="0.115" />
+        <xacro:property name="chassis_joint_parent_link" value="ugv_devkit_v1.1_chassis_extension_link" />
+       </xacro:if>
+
+       <link name="ugv_devkit_v1.1_chassis_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+                <mass value="10.733504865991039" />
+                <inertia ixx="0.167434" iyy="0.148852" izz="0.213349" ixy="0.000228" iyz="-0.000808" ixz="0.000348" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+                <geometry>
+                    <mesh filename="package://ugv_devkit_bringup/meshes/ugv_devkit_v1.1_chassis_link.stl"
+                    scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name="silver" />
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+                <geometry>
+                    <mesh filename="package://ugv_devkit_bringup/meshes/ugv_devkit_v1.1_chassis_link.stl"
+                    scale="0.001 0.001 0.001" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="chassis_joint" type="fixed">
+            <origin xyz="0 0 ${chassis_joint_z}" rpy="0 0 0" />
+            <parent link="${chassis_joint_parent_link}" />
+            <child link="ugv_devkit_v1.1_chassis_link" />
+        </joint>
+
+        <!-- The links and joints below are used by the sensor kits and are recommended not to be renamed/removed-->
+        <link name="top_sensor_kit_link"/>
+        <link name="front_sensor_kit_link"/>
+        <link name="rear_sensor_kit_link"/>
+        <link name="left_sensor_kit_link"/>
+        <link name="right_sensor_kit_link"/>
+
+        <joint name="top_joint" type="fixed">
+            <origin xyz="0.0 0.0 0.25" rpy="0 0 0" />
+            <parent link="ugv_devkit_v1.1_chassis_link" />
+            <child link="top_sensor_kit_link" />
+        </joint>
+
+        <joint name="front_joint" type="fixed">
+            <origin xyz="0.160 0.0 0.1265" rpy="0 0 0" />
+            <parent link="ugv_devkit_v1.1_chassis_link" />
+            <child link="front_sensor_kit_link" />
+        </joint>
+
+        <joint name="rear_joint" type="fixed">
+            <origin xyz="-0.160 0.0 0.1265" rpy="0 0 ${M_PI}" />
+            <parent link="ugv_devkit_v1.1_chassis_link" />
+            <child link="rear_sensor_kit_link" />
+        </joint>
+
+        <joint name="left_joint" type="fixed">
+            <origin xyz="0.0 0.165 0.1265" rpy="0 0 ${M_PI/2}" />
+            <parent link="ugv_devkit_v1.1_chassis_link" />
+            <child link="left_sensor_kit_link" />
+        </joint>
+
+        <joint name="right_joint" type="fixed">
+            <origin xyz="0.0 -0.165 0.1265" rpy="0 0 -${M_PI/2}" />
+            <parent link="ugv_devkit_v1.1_chassis_link" />
+            <child link="right_sensor_kit_link" />
+        </joint>
+    </xacro:macro>
+
+</robot>

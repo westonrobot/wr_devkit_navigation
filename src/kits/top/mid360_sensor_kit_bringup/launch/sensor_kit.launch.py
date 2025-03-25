@@ -87,7 +87,7 @@ def generate_launch_description():
     imu_bringup = GroupAction([
         Node(
             package="wrp_ros2",
-            name="ch104m_imu_sensor_node",
+            name="hi14_imu_sensor_node",
             executable="imu_sensor_node",
             output="screen",
             parameters=[

@@ -6,7 +6,7 @@ repositories:
   drivers/ranger_ros2:
     type: git
     url: https://github.com/westonrobot/ranger_ros2.git
-    version: 12e4c9f79d555ed2241f7c355a758a779393651a
+    version: e7465ea98ae47f7ffe5d6eecc03c4332d8e57581
   drivers/scout_ros2:
     type: git
     url: https://github.com/westonrobot/scout_ros2.git
@@ -14,7 +14,7 @@ repositories:
   drivers/ugv_sdk:
     type: git
     url: https://github.com/westonrobot/ugv_sdk.git
-    version: 012a9aa02436ffe2ef66f211dd193be7b69902ba
+    version: 58436e9c1732474566e249ce7f726e12e26304d6
   drivers/wrp_ros2:
     type: git
     url: https://github.com/westonrobot/wrp_ros2.git
