@@ -65,7 +65,7 @@ The following dependencies are specific to each sensor kit and should be install
 The following dependencies are required for building the workspace.
 
 ```bash
-$ sudo apt-get install ros-humble-pcl-ros ros-humble-camera-info-manager* ros-humble-diagnostic-updater ros-humble-xacro ros-humble-pointcloud-to-laserscan
+$ sudo apt-get install ros-humble-pcl-ros ros-humble-camera-info-manager* ros-humble-diagnostic-updater ros-humble-xacro ros-humble-pointcloud-to-laserscan ros-humble-nav2-map-server ros-humble-cartographer ros-humble-cartographer-ros ros-humble-cartographer-ros-msgs ros-humble-cartographer-rviz
 ```
 
 ### ROS Driver Packages
