@@ -32,7 +32,7 @@ The package will launch the various sensors and their associated driver nodes/su
   * Driver
     * Package: wrp_ros2
     * Executable/Plugin: imu_sensor_node
-    * Name: ch104m_imu_sensor_node
+    * Name: hi14_imu_sensor_node
 * Lidar
   * Driver
     * Package: livox_ros_driver2

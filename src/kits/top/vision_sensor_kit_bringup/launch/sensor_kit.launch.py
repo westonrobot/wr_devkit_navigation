@@ -137,9 +137,9 @@ def generate_launch_description():
             condition=IfCondition(PythonExpression(
                 ["'", cam_type, "' == 'realsense_d435i'"])),
             launch_arguments={
-                "camera_name": "d435i",
-                "camera_namespace": pos + "_cam",
-                "config_file": PathJoinSubstitution([FindPackageShare("vision_sensor_kit_bringup"), 'config', pos + '_d435i.param.yaml'])
+                "camera_name": f"{pos}_d435i",
+                "camera_namespace": f"{pos}_cam",
+                "config_file": PathJoinSubstitution([FindPackageShare("vision_sensor_kit_bringup"), "config", f"{pos}_d435i.param.yaml"])
             }.items(),
         ) for cam_type, pos in zip(camera_types, camera_positions)
     ])

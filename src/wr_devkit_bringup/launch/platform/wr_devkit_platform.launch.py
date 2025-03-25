@@ -15,6 +15,7 @@ def generate_launch_description():
     rear_camera = LaunchConfiguration("rear_camera", default="none")
     left_camera = LaunchConfiguration("left_camera", default="none")
     right_camera = LaunchConfiguration("right_camera", default="none")
+    chassis_extension = LaunchConfiguration("chassis_extension", default="false")
 
     declare_use_namespace_cmd = DeclareLaunchArgument(
         "use_namespace",
@@ -62,6 +63,12 @@ def generate_launch_description():
         'right_camera',
         default_value="",
         description='Right camera type'
+    )
+
+    declare_chassis_extension_cmd = DeclareLaunchArgument(
+        "chassis_extension",
+        default_value="false",
+        description="Whether to use UGV devkit chassis extension V1.1"
     )
 
     SetParameter(
@@ -130,11 +137,14 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
-                    FindPackageShare("ugv_devkit_v1_bringup"),
+                    FindPackageShare("ugv_devkit_bringup"),
                     "launch",
                     "chassis.launch.py",
                 ])
-            ])
+            ]),
+            launch_arguments={
+                "chassis_extension": chassis_extension,
+            }.items(),
         ),
         Node(
             condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v2'"])),
@@ -143,7 +153,7 @@ def generate_launch_description():
             name="chassis_transform_publisher",
             arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.335',
                        '--yaw', '0', '--pitch', '0', '--roll', '0',
-                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_v1_base_link']
+                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_base_link']
         ),
         Node(
             condition=IfCondition(PythonExpression(["'", robot_model, "' == 'scout_mini'"])),
@@ -152,7 +162,7 @@ def generate_launch_description():
             name="chassis_transform_publisher",
             arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.250',
                        '--yaw', '0', '--pitch', '0', '--roll', '0',
-                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_v1_base_link']
+                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_base_link']
         ),
     ])
 
@@ -207,6 +217,7 @@ def generate_launch_description():
         declare_rear_camera_cmd,
         declare_left_camera_cmd,
         declare_right_camera_cmd,
+        declare_chassis_extension_cmd,
         robot_base_bringup,
         chassis_bringup,
         sensor_kit_bringup
