@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<robot name="diff_drive" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find nav2_outdoor_example)/urdf/materials.xacro" />
+  <xacro:include filename="$(find nav2_outdoor_example)/urdf/robot.gazebo" />
+  <xacro:include filename="$(find nav2_outdoor_example)/urdf/wheel.xacro" />
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="97.36517446475621"/>
+      <inertia ixx="8.084237" iyy="15.065847" izz="23.090003" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find nav2_outdoor_example)/urdf/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find nav2_outdoor_example)/urdf/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:wheel name="front_right" xyz="0.35 -0.233285 0.0" rpy="0 0 2.07079698039" direction="1" />
+  <xacro:wheel name="rear_right" xyz="-0.35 -0.233285 0.0" rpy="0 0 1.07079566641" direction="1" />
+  <xacro:wheel name="front_left" xyz="0.35 0.233285 0.0" rpy="0 0 -2.07079698039" direction="-1" />
+  <xacro:wheel name="rear_left" xyz="-0.35 0.233285 0.0" rpy="0 0 -1.07079566641" direction="-1" />
+
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0 0.05" rpy="0.5 1.2 -1.17"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <link name="imu_link">
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="white" />
+
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+      <mass value="0.005"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <joint name="gnss_joint" type="fixed">
+    <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="gnss_link"/>
+  </joint>
+
+  <link name="gnss_link">
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="black" />
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0.3 1.6 -0.4"/>
+      <mass value="0.005"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+</robot>

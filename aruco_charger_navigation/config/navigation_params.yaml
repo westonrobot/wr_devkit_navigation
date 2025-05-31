@@ -1,0 +1,7 @@
+charger_navigator:
+  ros__parameters:
+    approach_distance: 0.5
+    linear_speed: 0.2
+    angular_speed: 0.3
+    position_tolerance: 0.05
+    angle_tolerance: 0.1

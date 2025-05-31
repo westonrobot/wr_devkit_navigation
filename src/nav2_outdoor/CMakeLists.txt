@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.5)
+project(nav2_outdoor)
+
+find_package(ament_cmake REQUIRED)
+
+install(
+  DIRECTORY  launch rviz config world urdf
+  DESTINATION share/${PROJECT_NAME}
+)
+
+ament_package()
