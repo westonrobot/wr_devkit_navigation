@@ -14,20 +14,21 @@ The following hardware configurations are supported:
 ### Chassis
 | Name                     | Documentation                                                         | Source Code                                                        |
 | ------------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| UGV Development Kit V1.1 | [wiki](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1.1.html) | [ugv_devkit_bringup](./src/kits/chassis/ugv_devkit_bringup/) |
+| UGV Development Kit V1.1 | [wiki](https://docs.westonrobot.com/system/ugv_devkit/v1.1) | [ugv_devkit_bringup](./src/kits/chassis/ugv_devkit_bringup/) |
 
 ### Sensor Kits
 | Sensor kit               | Mount Location | Documentation                                                                                                                             | Source Code                                                            |
 | ------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Livox Mid360 Lidar + IMU | Top            | [docs](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_mid360_extension.html#ref-ugv-devkit-livox-mid360-imu-extension) | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
-| Vision                   | Top            | [docs](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_vision_extension.html#ref-ugv-devkit-vision-extension)           | [vision_sensor_kit_bringup](./src/kits/top/vision_sensor_kit_bringup/)   |
+| Livox Mid360 Lidar + IMU | Top            | [docs](https://docs.westonrobot.com/system/ugv_devkit/v1/mid360_extension/) | [mid360_sensor_kit_bringup](./src/kits/top/mid360_sensor_kit_bringup/) |
+| Vision                   | Top            | [docs](https://docs.westonrobot.com/system/ugv_devkit/v1/vision_extension/)           | [vision_sensor_kit_bringup](./src/kits/top/vision_sensor_kit_bringup/)   |
 | W200D Ultrasonic Sensors | Base           | TBD                                                                                                                                       | [w200d_sensor_kit_bringup](./src/kits/base/w200d_sensor_kit_bringup/)  |
 
 ### Robot Bases
 | Base            | Documentation                                                                      |
 | --------------- | ---------------------------------------------------------------------------------- |
-| Ranger Mini 2.0 | [wiki](https://docs.westonrobot.com/robot_user_guide/agilex/ranger_mini_v2.0.html) |
-| Scout Mini      | [wiki](https://docs.westonrobot.com/robot_user_guide/agilex/scout_mini.html)       |
+| Ranger Mini 2.0 | [wiki](https://docs.westonrobot.com/robot/ugv/ranger-mini-v2) |
+| Ranger Mini 3.0 | [wiki](https://docs.westonrobot.com/robot/ugv/ranger-mini-v3) |
+| Scout Mini      | [wiki](https://docs.westonrobot.com/robot/ugv/scout-mini) |
 
 **Note**: Robot bases are used for testing and development purposes only. Other robot bases should also be compatible with the provided chassis and sensor kits.
 
@@ -41,3 +42,7 @@ Please refer to the [installation guide](/docs/INSTALLATION.md) for detailed ins
 
 ## Running the packages
 Please refer to the [running guide](/docs/RUN.md) for detailed instructions on running the sample applications.
+
+## Documentation
+ For more detailed instructions on running the different launch files and arguments, refer to the README file in [wr_devkit_bringup](./src/wr_devkit_bringup/README.md).
+ **For a more detailed guide please refer to our [documentation site](https://docs.westonrobot.com/system/ugv_devkit/v1.1).** It describes the overview, hardware, software, and software setup.
