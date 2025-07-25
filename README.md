@@ -41,3 +41,7 @@ Please refer to the [installation guide](/docs/INSTALLATION.md) for detailed ins
 
 ## Running the packages
 Please refer to the [running guide](/docs/RUN.md) for detailed instructions on running the sample applications.
+
+## Documentation
+ For more detailed instructions on running the different launch files and arguments, refer to the README file in [wr_devkit_bringup](./src/wr_devkit_bringup/README.md).
+ **For a more detailed guide please refer to our [documentation site](https://docs.westonrobot.com/system/ugv_devkit/v1.1).** It describes the overview, hardware, software, and software setup.

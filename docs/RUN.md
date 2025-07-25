@@ -7,9 +7,9 @@ This repository includes 2 sample mapping setups:
 
 Both setups are integrated with Nav2 navigation, enabling autonomous waypoint navigation for your robot.
 
-Sample launch files can be found in the [wr_devkit_bringup](/src/wr_devkit_bringup/) package. They are meant to be used as a starting point for your own development and can be customized to your needs.
+Sample launch files can be found in the [wr_devkit_bringup](../src/wr_devkit_bringup/README.md) package. They are meant to be used as a starting point for your own development and can be customized to your needs.
 
-> A more detailed guide can be found on our [documentation site](https://docs.westonrobot.com/wr_dev_kit/ugv_dev_kit_v1/ugv_devkit_ros2_navigation_sample_setup_guide.html#ugv-devkit-ros2-navigation-sample-setup-guide)
+> **A more detailed guide can be found on our [documentation site](https://docs.westonrobot.com/system/ugv_devkit/v1.1).** It describes the overview, hardware, software, and software setup.
 
 Below is the typical workflow to bring up the robot and run some sample applications.
 
@@ -27,6 +27,9 @@ Below is the typical workflow to bring up the robot and run some sample applicat
   The platform bringup launch file initializes the robot hardware and required ROS2 nodes. It is a prerequisite for running the other applications.
   ```bash
   ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=ranger_mini_v2 # scout_mini
+  
+  # Example launch with cameras
+  # ros2 launch wr_devkit_bringup wr_devkit_platform.launch.py robot_model:=scout_mini front_camera:=rgb_camera rear_camera:=rgb_camera left_camera:=rgb_camera right_camera:=realsense_d435i
   ```
 
 ## Mapping
@@ -66,7 +69,7 @@ Below is the typical workflow to bring up the robot and run some sample applicat
     ```bash
     ros2 launch wr_devkit_bringup wr_devkit_nav2.launch.py robot_param:=nav2_ranger_mini.param.yaml map:=<your_map_yaml>
     ```
-  > **Note:** Replace `<your_map_yaml>` with the path to the map file you saved earlier.
+    > **Note:** Replace `<your_map_yaml>` with the path to the map file you saved earlier.
 ### If you are using RTAB-Map:
   * Launch RTAB-Map node in localization mode
     ```bash
@@ -79,4 +82,4 @@ Below is the typical workflow to bring up the robot and run some sample applicat
 
 ## Notes
 * The sample applications (Nav2/SLAM/vSLAM) are designed to be ran separately and `should not` be ran at the same time.
-* For more detailed instructions on running the different launch files, refer to the README file in [wr_devkit_bringup](/src/wr_devkit_bringup/).
+* For more detailed instructions on running the different launch files and arguments, refer to the README file in [wr_devkit_bringup](../src/wr_devkit_bringup/README.md).
