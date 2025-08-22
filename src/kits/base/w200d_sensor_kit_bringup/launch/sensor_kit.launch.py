@@ -72,7 +72,7 @@ def launch_setup(context, *args, **kwargs):
     # --------- Drivers ---------
 
     ultrasonic_bringup = Node(
-        package="wrp_ros2",
+        package="wrp_sdk_periph",
         name="ultrasonic_sensor_node",
         executable="ultrasonic_sensor_node",
         output="screen",

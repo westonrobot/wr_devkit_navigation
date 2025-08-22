@@ -40,3 +40,5 @@ To better suit your needs/setup, you may need to adjust these accordingly
 ## Notes
 The numbering is based on the physical sensor's position on the robot.
 The sensors are numbered from 0 to 7, starting from the front-facing front right sensor and going anti-clockwise.
+
+![Ultrasonic Sensor Data Visualization](docs/ultrasonic_data_visualization.gif)
