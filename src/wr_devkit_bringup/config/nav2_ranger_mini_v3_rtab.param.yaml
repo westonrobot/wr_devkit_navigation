@@ -191,7 +191,8 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
-      footprint: "[[0.3135, 0.275], [0.3135, -0.275], [-0.3135, -0.275], [-0.3135, 0.275]]"
+      robot_radius: 0.22
+      footprint: "[[0.36, 0.25], [0.36, -0.25], [-0.36, -0.25], [-0.36, 0.25]]"
       footprint_padding: 0.02
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
@@ -207,7 +208,7 @@ local_costmap:
         z_voxels: 16
         max_obstacle_height: 2.0
         mark_threshold: 0
-        observation_sources: pointcloud_marking pointcloud_clearing
+        observation_sources: pointcloud_marking pointcloud_clearing realsense_pointcloud
         pointcloud_marking:
           topic: /livox/lidar
           max_obstacle_height: 1.8
@@ -217,8 +218,8 @@ local_costmap:
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
-      pointcloud_clearing:
+          obstacle_min_range: 0.5
+        pointcloud_clearing:
           topic: /livox/lidar
           max_obstacle_height: 10.0
           clearing: True
@@ -227,8 +228,23 @@ local_costmap:
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
-      always_send_full_costmap: True
+          obstacle_min_range: 0.5
+        realsense_pointcloud:
+          topic: /front_cam/front_d435i/depth/color/points
+          max_obstacle_height: 2.0
+          min_obstacle_height: 0.5
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.5
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          clearing: True
+          marking: True
+          data_type: "PointCloud2"
+      always_send_full_costmap: False
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 1.2
+        inflation_radius: 0.55
 
 global_costmap:
   global_costmap:
@@ -238,7 +254,8 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_footprint
       use_sim_time: True
-      footprint: "[[0.3135, 0.275], [0.3135, -0.275], [-0.3135, -0.275], [-0.3135, 0.275]]"
+      #robot_radius: 0.22
+      footprint: "[[0.36, 0.25], [0.36, -0.25], [-0.36, -0.25], [-0.36, 0.25]]"
       footprint_padding: 0.02
       resolution: 0.05
       track_unknown_space: true
@@ -246,7 +263,7 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan_marking scan_clearing
+        observation_sources: scan_marking scan_clearing realsense_pointcloud
         scan_marking:
           topic: /scan
           max_obstacle_height: 2.0
@@ -256,7 +273,7 @@ global_costmap:
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
+          obstacle_min_range: 0.5
         scan_clearing:
           topic: /scan
           max_obstacle_height: 2.0
@@ -266,7 +283,18 @@ global_costmap:
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
+          obstacle_min_range: 0.5
+        realsense_pointcloud:  # no frame set, uses frame from message
+          topic: /front_cam/front_d435i/depth/color/points
+          max_obstacle_height: 2.0
+          min_obstacle_height: 0.5
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.5
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          clearing: True
+          marking: True
+          data_type: "PointCloud2"
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -274,7 +302,6 @@ global_costmap:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
         inflation_radius: 0.55
-      always_send_full_costmap: True
 
 map_server:
   ros__parameters:
@@ -396,4 +423,4 @@ collision_monitor:
       topic: "scan"
       min_height: 0.15
       max_height: 2.0
-      enabled: True
+      enabled: False

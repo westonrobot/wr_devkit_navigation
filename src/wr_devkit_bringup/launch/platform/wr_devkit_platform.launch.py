@@ -37,8 +37,8 @@ def generate_launch_description():
 
     declare_robot_model_cmd = DeclareLaunchArgument(
         "robot_model",
-        default_value="ranger_mini_v2",
-        description="ranger_mini_v2, scout_mini",
+        default_value="ranger_mini_v3",
+        description="ranger_mini_v3,ranger_mini_v2, scout_mini",
     )
 
     declare_front_camera_cmd = DeclareLaunchArgument(
@@ -106,6 +106,26 @@ def generate_launch_description():
             }.items(),
         ),
         IncludeLaunchDescription(
+            XMLLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("ranger_base"),
+                    "launch",
+                    "include",
+                    "ranger_robot_base.launch.xml",
+                ])
+            ]),
+            condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v3'"])),
+            launch_arguments={
+                "port_name": "can0",
+                "robot_model": robot_model,
+                "odom_frame": "odom",
+                "base_frame": "base_link",
+                "update_rate": "50",
+                "odom_topic_name": "odom",
+                "publish_odom_tf": "true",
+            }.items(),
+        ),
+        IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
                     FindPackageShare("scout_base"),
@@ -145,6 +165,15 @@ def generate_launch_description():
             launch_arguments={
                 "chassis_extension": chassis_extension,
             }.items(),
+        ),
+        Node(
+            condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v3'"])),
+            package="tf2_ros",
+            executable="static_transform_publisher",
+            name="chassis_transform_publisher",
+            arguments=['--x', '0.0', '--y', '-0.0', '--z', '0.335',
+                       '--yaw', '0', '--pitch', '0', '--roll', '0',
+                       '--frame-id', 'base_link', '--child-frame-id', 'ugv_devkit_base_link']
         ),
         Node(
             condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v2'"])),
@@ -201,6 +230,19 @@ def generate_launch_description():
                 ])
             ]),
             condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v2'"])),
+            launch_arguments={
+                "robot_base": "ranger_mini",
+            }.items(),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("w200d_sensor_kit_bringup"),
+                    "launch",
+                    "sensor_kit.launch.py",
+                ])
+            ]),
+            condition=IfCondition(PythonExpression(["'", robot_model, "' == 'ranger_mini_v3'"])),
             launch_arguments={
                 "robot_base": "ranger_mini",
             }.items(),

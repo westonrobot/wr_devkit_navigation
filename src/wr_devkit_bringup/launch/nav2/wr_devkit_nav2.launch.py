@@ -102,8 +102,8 @@ def generate_launch_description():
 
     declare_robot_param_cmd = DeclareLaunchArgument(
         "robot_param",
-        default_value="nav2_ranger_mini.param.yaml",
-        description="nav2_ranger_mini.param.yaml, nav2_scout_mini.param.yaml",
+        default_value="nav2_ranger_mini_v3.param.yaml",
+        description="nav2_ranger_mini_v3.param.yaml, nav2_ranger_mini_v2.param.yaml,nav2_scout_mini.param.yaml",
     )
 
     declare_params_file_cmd = DeclareLaunchArgument(
