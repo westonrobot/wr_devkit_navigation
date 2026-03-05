@@ -191,7 +191,6 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
-      robot_radius: 0.22
       footprint: "[[0.36, 0.2525], [0.36, -0.2525], [-0.36, -0.2525], [-0.36, 0.2525]]"
       footprint_padding: 0.02
       plugins: ["voxel_layer", "inflation_layer"]
@@ -254,7 +253,6 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_footprint
       use_sim_time: True
-      #robot_radius: 0.22
       footprint: "[[0.36, 0.2525], [0.36, -0.2525], [-0.36, -0.2525], [-0.36, 0.2525]]"
       footprint_padding: 0.02
       resolution: 0.05
