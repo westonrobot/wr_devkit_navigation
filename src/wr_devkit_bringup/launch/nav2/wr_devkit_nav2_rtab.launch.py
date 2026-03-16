@@ -32,7 +32,6 @@ def generate_launch_description():
     remappings = [("/tf", "tf"), ("/tf_static", "tf_static")]
 
     lifecycle_nodes = [
-        "amcl",
         "controller_server",
         "smoother_server",
         "planner_server",
@@ -211,13 +210,6 @@ def generate_launch_description():
                         parameters=[
                             {"autostart": autostart, "node_names": lifecycle_nodes}
                         ],
-                    ),
-                    ComposableNode(
-                        package="nav2_amcl",
-                        plugin="nav2_amcl::AmclNode",
-                        name="amcl",
-                        parameters=[configured_params],
-                        remappings=remappings,
                     ),
                 ],
             ),
